@@ -5,8 +5,8 @@ This module does 3 things:
  o backports augeas type from puppet rev cf648279 which fixes issue #1826
    One must have "pluginsync=true" in puppet.conf for this to work.
  
- o creates /usr/share/augeas/lenses in which other modules can put custom
-   lenses (see puppet-mysql for a working example).
+ o creates /usr/share/augeas/lenses/contrib in which other modules can put
+   custom lenses (see puppet-mysql/puppet-haproxy for working examples).
 
 The idea is to override this class to include your specific needs. Example:
 
