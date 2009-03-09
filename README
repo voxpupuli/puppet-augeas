@@ -1,0 +1,31 @@
+This module does 3 things:
+
+ o ensure correct packages are installed for augeas.
+
+ o backports augeas type from puppet rev cf648279 which fixes issue #1826
+   One must have "pluginsync=true" in puppet.conf for this to work.
+ 
+ o creates /usr/share/augeas/lenses in which other modules can put custom
+   lenses (see puppet-mysql for a working example).
+
+The idea is to override this class to include your specific needs. Example:
+
+class redhat::augeas inherits augeas::base {
+
+  Package["augeas"] {
+    require => Yumrepo["epel-fedora-testing"],
+    tag => "install-augeas",
+    ensure => "0.4.1-1.el5";
+  }
+}
+
+class debian::augeas inherits augeas::base {
+
+  Package["libaugeas0"] {
+    ensure => "latest";
+  }
+  Package["libaugeas-ruby1.8"] {
+    ensure => "0.2.0-2";
+  }
+}
+
