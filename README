@@ -1,3 +1,11 @@
+= Augeas Puppet module =
+
+== Usage ==
+
+  include augeas
+
+== Description ==
+
 This module does 3 things:
 
  o ensure correct packages are installed for augeas.
@@ -10,7 +18,7 @@ This module does 3 things:
 
 The idea is to override this class to include your specific needs. Example:
 
-class redhat::augeas inherits augeas::base {
+class augeas::my-redhat inherits augeas::base {
 
   Package["augeas"] {
     require => Yumrepo["epel-fedora-testing"],
@@ -19,7 +27,7 @@ class redhat::augeas inherits augeas::base {
   }
 }
 
-class debian::augeas inherits augeas::base {
+class augeas::my-debian inherits augeas::base {
 
   Package["libaugeas0"] {
     ensure => "latest";
