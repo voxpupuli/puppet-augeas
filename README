@@ -18,7 +18,7 @@ This module does 3 things:
 
 The idea is to override this class to include your specific needs. Example:
 
-class augeas::my-redhat inherits augeas::base {
+class augeas::my-redhat inherits augeas::redhat {
 
   Package["augeas"] {
     require => Yumrepo["epel-fedora-testing"],
@@ -27,7 +27,7 @@ class augeas::my-redhat inherits augeas::base {
   }
 }
 
-class augeas::my-debian inherits augeas::base {
+class augeas::my-debian inherits augeas::debian {
 
   Package["libaugeas0"] {
     ensure => "latest";
