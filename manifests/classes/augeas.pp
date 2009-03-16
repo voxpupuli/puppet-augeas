@@ -10,6 +10,10 @@ class augeas {
 class augeas::base {
   file {"/usr/share/augeas/lenses/contrib":
     ensure => directory,
+    require => $operatingsystem ? {
+      debian => Package["augeas-lenses"],
+      redhat => Package["augeas"],
+    },
   }
 }
 
