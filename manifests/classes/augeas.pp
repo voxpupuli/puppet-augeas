@@ -5,10 +5,9 @@ class augeas {
   }
 
   case $operatingsystem {
-    redhat: { include augeas::redhat }
-    debian: { include augeas::debian }
-    ubuntu: { include augeas::debian }
-    default: { include augeas::base }
+    /RedHat|CentOS|Fedora/:   { include augeas::redhat }
+    /Debian|Ubuntu|kFreeBSD/: { include augeas::debian }
+    default:                  { include augeas::base }
   }
 }
 
