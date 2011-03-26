@@ -1,6 +1,5 @@
 Facter.add("augeasversion") do
   setcode do
-
     begin
       require 'augeas'
       aug = Augeas::open('', '', Augeas::NO_LOAD & Augeas::NO_STDINC)
