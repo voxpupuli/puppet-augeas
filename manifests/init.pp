@@ -1,6 +1,6 @@
 class augeas {
 	require augeas::params
-	
+
 	case $operatingsystem {
 		/(?i)(RedHat|CentOS|Fedora)/: {
 			include augeas::redhat

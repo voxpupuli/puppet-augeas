@@ -18,9 +18,9 @@ describe 'augeas', :type => :class do
  
 		it { should create_class("augeas") }
 		it { should include_class("augeas::params") }
+	  it { should include_class("augeas::base") }
 		it { should include_class("augeas::redhat") }
 		
-	  it { should_not include_class("augeas::base") }
 		it { should_not include_class("augeas::debian") }
 		it { should_not include_class("augeas::gentoo") }
   end
@@ -30,9 +30,9 @@ describe 'augeas', :type => :class do
  
 		it { should create_class("augeas") }
 		it { should include_class("augeas::params") }
+	  it { should include_class("augeas::base") }
 		it { should include_class("augeas::debian") }
 		
-	  it { should_not include_class("augeas::base") }
 		it { should_not include_class("augeas::gentoo") }
 		it { should_not include_class("augeas::redhat") }
   end
@@ -42,9 +42,9 @@ describe 'augeas', :type => :class do
  
 		it { should create_class("augeas") }
 		it { should include_class("augeas::params") }
+	  it { should include_class("augeas::base") }
 		it { should include_class("augeas::gentoo") }
 		
-	  it { should_not include_class("augeas::base") }
 		it { should_not include_class("augeas::debian") }
 		it { should_not include_class("augeas::redhat") }
   end
