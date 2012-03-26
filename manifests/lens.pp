@@ -1,3 +1,24 @@
+/*
+
+== Definition: augeas::lens
+
+Deploy an Augeas lens (and its test file).
+Check the lens (and run the unit tests) automatically and remove the files if the checks fail.
+
+Parameters:
+- *ensure*: present/absent
+- *lens_source*: the source for the lens
+- *test_source*: optionally, the source for the test file.
+
+Example usage:
+
+  augeas::lens { "networkmanager":
+    lens_source => "puppet:///modules/networkmanager/lenses/networkmanager.aug",
+    test_source => "puppet:///modules/networkmanager/lenses/test_networkmanager.aug",
+  }
+
+*/
+
 define augeas::lens (
   $ensure=present,
   $lens_source,
