@@ -12,16 +12,16 @@ Parameters:
 
 Example usage:
 
-  augeas::lens { "networkmanager":
-    lens_source => "puppet:///modules/networkmanager/lenses/networkmanager.aug",
-    test_source => "puppet:///modules/networkmanager/lenses/test_networkmanager.aug",
+  augeas::lens { 'networkmanager':
+    lens_source => 'puppet:///modules/networkmanager/lenses/networkmanager.aug',
+    test_source => 'puppet:///modules/networkmanager/lenses/test_networkmanager.aug',
   }
 
 */
 
 define augeas::lens (
-  $ensure=present,
   $lens_source,
+  $ensure=present,
   $test_source=false
 ) {
 
@@ -29,29 +29,29 @@ define augeas::lens (
 
   $lens_dest = "${augeas::base::lens_dir}/${name}.aug"
   $test_dest = "${augeas::base::lens_dir}/tests/test_${name}.aug"
- 
-  file { "${lens_dest}":
+
+  file { $lens_dest:
     ensure => $ensure,
     source => $lens_source,
   }
 
   exec { "Typecheck lens ${name}":
-    command => "augparse -I ${augeas::base::lens_dir} ${lens_dest} || (rm -f ${lens_dest} && exit 1)",
+    command     => "augparse -I ${augeas::base::lens_dir} ${lens_dest} || (rm -f ${lens_dest} && exit 1)",
     refreshonly => true,
-    subscribe => File[$lens_dest],
+    subscribe   => File[$lens_dest],
   }
 
   if $test_source {
-    file { "${test_dest}":
+    file { $test_dest:
       ensure => $ensure,
       source => $test_source,
       notify => Exec["Test lens ${name}"]
     }
-  
+
     exec { "Test lens ${name}":
-      command => "augparse -I ${augeas::base::lens_dir} ${test_dest} || (rm -f ${lens_dest} && rm -f ${test_dest} && exit 1)",
+      command     => "augparse -I ${augeas::base::lens_dir} ${test_dest} || (rm -f ${lens_dest} && rm -f ${test_dest} && exit 1)",
       refreshonly => true,
-      subscribe => File[$lens_dest, $test_dest],
+      subscribe   => File[$lens_dest, $test_dest],
     }
   }
 }
