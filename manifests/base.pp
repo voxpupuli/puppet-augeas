@@ -6,6 +6,11 @@ class augeas::base {
     default => $augeas_version
   }
 
+  $rubylib_version = $augeas_ruby_version ? {
+    ''      => 'present',
+    default => $augeas_ruby_version
+  }
+
   # ensure no file not managed by puppet ends up in there.
   file { $lens_dir:
     ensure  => directory,
