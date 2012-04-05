@@ -1,8 +1,8 @@
 class augeas {
 
-  $version = $::augeas_version ? {
+  $version = $::augeasversion ? {
     ''      => 'present',
-    default => $::augeas_version
+    default => $::augeasversion
   }
 
   case $operatingsystem {
