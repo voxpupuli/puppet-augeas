@@ -5,6 +5,6 @@ class augeas::redhat inherits augeas::base {
       ensure => "${augeas::version}",
       before => File['/usr/share/augeas/lenses/contrib'],
   }
-  package { 'ruby-augeas': ensure => present }
+  package { 'ruby-augeas': ensure => "${augeas::rubylib_version}" }
 
 }
