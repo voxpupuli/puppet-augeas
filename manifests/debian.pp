@@ -5,6 +5,7 @@ class augeas::debian inherits augeas::base {
       ensure => "${augeas::version}",
       before => File['/usr/share/augeas/lenses/contrib'],
   }
-  package {'libaugeas-ruby1.8': ensure => present }
+
+  package {'libaugeas-ruby1.8': ensure => "${augeas::rubylib_version}" }
 
 }
