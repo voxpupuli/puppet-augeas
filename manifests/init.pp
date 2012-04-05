@@ -1,10 +1,5 @@
 class augeas {
 
-  $version = $augeas_version ? {
-    ''      => 'present',
-    default => $augeas_version
-  }
-
   $rubylib_version = $augeas_ruby_version ? {
     ''      => 'present',
     default => $augeas_ruby_version
