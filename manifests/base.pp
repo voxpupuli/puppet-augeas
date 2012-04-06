@@ -1,9 +1,9 @@
 class augeas::base {
   $lens_dir = '/usr/share/augeas/lenses/contrib'
 
-  $version = $augeas_version ? {
+  $version = $augeasversion ? {
     ''      => 'present',
-    default => $augeas_version
+    default => $augeasversion
   }
 
   $rubylib_version = $augeas_ruby_version ? {
