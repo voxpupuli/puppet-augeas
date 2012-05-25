@@ -2,5 +2,6 @@
     "license": "GPL2",
     "author": "Vurbia Technologies International Inc.",
     "version": "1.0",
-    "source": "https://github.com/vurbia/puppet-augeas"
+    "source": "https://github.com/vurbia/puppet-augeas",
+    "dependencies": []
 }
