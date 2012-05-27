@@ -1,18 +1,17 @@
-class augeas {
-	require augeas::params
+class augeas inherits augeas::params {
 
-	case $operatingsystem {
-		/(?i)(RedHat|CentOS|Fedora)/: {
-			include augeas::redhat
-		}
-		/(?i)(Debian|Ubuntu|kFreeBSD)/: {
-			include augeas::debian
-		}
-		/(?i)Gentoo/: {
-			include augeas::gentoo
-		}
-		default:                        {
-			include augeas::base
-		}
-	}
+  case $operatingsystem {
+    /(?i-mx:centos|fedora|redhat|scientific)/: {
+      include augeas::redhat
+    }
+    /(?i-mx:debian|ubuntu|kfreebsd)/: {
+      include augeas::debian
+    }
+    /(?i-mx:gentoo)/: {
+      include augeas::gentoo
+    }
+    default:                        {
+      include augeas::base
+    }
+  }
 }

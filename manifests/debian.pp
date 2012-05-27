@@ -1,10 +1,12 @@
 class augeas::debian inherits augeas::base {
-	package { [ 'augeas-lenses', 'libaugeas0', 'augeas-tools' ]:
-		ensure => $augeas::params::version,
-		before => File[$augeas::params::contribdir],
-	}
+  $packages = [ 'augeas-lenses', 'libaugeas0', 'augeas-tools' ]
 
-	package { 'libaugeas-ruby1.8':
-		ensure => present,
-	}
+  package { $packages:
+    ensure => $augeas::params::version,
+    before => File[$augeas::params::contribdir],
+  }
+
+  package { 'libaugeas-ruby1.8':
+    ensure => present,
+  }
 }
