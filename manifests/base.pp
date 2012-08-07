@@ -30,5 +30,6 @@ class augeas::base {
     mode    => '0644',
     owner   => 'root',
     group   => 'root',
+    require => File[$lens_dir],
   }
 }
