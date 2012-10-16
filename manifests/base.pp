@@ -1,5 +1,5 @@
 class augeas::base {
-  $lens_dir = '/usr/share/augeas/lenses/contrib'
+  $lens_dir = '/usr/share/augeas/lenses'
 
   $version = $augeas_version ? {
     ''      => 'present',

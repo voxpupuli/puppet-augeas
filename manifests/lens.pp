@@ -45,7 +45,7 @@ define augeas::lens (
     file { $test_dest:
       ensure => $ensure,
       source => $test_source,
-      notify => Exec["Test lens ${name}"]
+      notify => Exec["Test lens ${name}"],
     }
 
     exec { "Test lens ${name}":
