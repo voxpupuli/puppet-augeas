@@ -10,8 +10,5 @@ This module does 3 things:
 
  o provides a few lenses only included in recent augeas releases.
  
- o creates /usr/share/augeas/lenses/contrib in which other modules can put
-   custom lenses (see puppet-mysql/puppet-haproxy for working examples).
-
  o let's you force the version by defining $augeas_version, else puppet will
    only ensure the packages are present.
