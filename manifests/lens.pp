@@ -3,7 +3,8 @@
 == Definition: augeas::lens
 
 Deploy an Augeas lens (and its test file).
-Check the lens (and run the unit tests) automatically and remove the files if the checks fail.
+Check the lens (and run the unit tests) automatically and remove the files if
+the checks fail.
 
 Parameters:
 - *ensure*: present/absent
