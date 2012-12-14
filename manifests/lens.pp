@@ -28,10 +28,10 @@ define augeas::lens (
 
   include augeas::base
 
-  $lens_dest = "${augeas::base::lens_dir}/${name}.aug"
-  $test_dest = "${augeas::base::lens_dir}/tests/test_${name}.aug"
+  $lens_dest = "${augeas::base::lens_dir}/dist/${name}.aug"
+  $test_dest = "${augeas::base::lens_dir}/dist/tests/test_${name}.aug"
 
-  file { $lens_dest:
+  file { "$lens_dest":
     ensure => $ensure,
     source => $lens_source,
   }
