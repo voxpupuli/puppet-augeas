@@ -31,7 +31,7 @@ define augeas::lens (
   $lens_dest = "${augeas::base::lens_dir}/${name}.aug"
   $test_dest = "${augeas::base::lens_dir}/tests/test_${name}.aug"
 
-  file { $lens_dest:
+  file { "$lens_dest/dist":
     ensure => $ensure,
     source => $lens_source,
   }
