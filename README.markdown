@@ -6,12 +6,13 @@
 
 ## Description
 
-This module does 3 things:
+This module does 4 things:
  
 * lets you force the augeas version by defining $augeas_version, otherwise puppet will
-   only ensure the packages are present.
+   only ensure the packages are present;
 * lets you force the ruby library version by defining $augeas_ruby_version, otherwise puppet will
-   only ensure the libagueas-ruby version will be installed according to internal critera
+   only ensure the libaugeas-ruby version will be installed according to internal critera;
+* provides an `augeas()` master-side function to manipulate strings using Augeas;
 * lets you deploy an augeas lens and any associated test files, running unit tests and not installing if they fail:
 
 Parameters:
