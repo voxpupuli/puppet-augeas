@@ -2,18 +2,26 @@
 
 ## Usage
 
-  include augeas
+Simple usage:
 
-## Description
+    include augeas
 
-This module does 4 things:
- 
-* lets you force the augeas version by defining $augeas_version, otherwise puppet will
+### Classes
+
+The module provides an `augeas` class which installs and configures Augeas.
+
+
+* lets you force the augeas version by defining `$augeas\_version`, otherwise puppet will
    only ensure the packages are present;
-* lets you force the ruby library version by defining $augeas_ruby_version, otherwise puppet will
+* lets you force the ruby library version by defining `$augeas\_ruby\_version`, otherwise puppet will
    only ensure the libaugeas-ruby version will be installed according to internal critera;
 * provides an `augeas()` master-side function to manipulate strings using Augeas;
-* lets you deploy an augeas lens and any associated test files, running unit tests and not installing if they fail:
+
+### Definitions
+
+#### `augeas::lens`
+
+The `augeas::lens` definition allows you to deploy an Augeas lens and any associated test files, running unit tests and not installing if they fail:
 
 Parameters:
 
@@ -30,3 +38,21 @@ Example usage:
       test_source => 'puppet:///modules/networkmanager/lenses/test_networkmanager.aug',
       stock_since => '1.0.0',
      }
+
+### Functions
+
+#### `augeas()`
+
+Modifies a string using Augeas.
+
+*Example:*
+
+    augeas("proc        /proc   proc    nodev,noexec,nosuid     0       0\n", 'Fstab.lns', ['rm ./1/opt[3]'])
+
+Would result in:
+
+    "proc        /proc   proc    nodev,noexec     0       0\n"
+
+
+- *Type*: rvalue
+
