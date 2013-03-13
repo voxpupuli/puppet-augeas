@@ -31,7 +31,7 @@ define augeas::lens (
 ) {
 
   if (!$stock_since or !versioncmp($::augeasversion, $stock_since)) {
-    if !declared(Class['augeas']) {
+    if !defined(Class['augeas']) {
       fail('You must declare the augeas class before using augeas::lens')
     }
 
