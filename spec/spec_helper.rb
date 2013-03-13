@@ -11,6 +11,9 @@ gem 'rspec', '>=2.0.0'
 require 'rspec/expectations'
 
 require 'puppetlabs_spec_helper/module_spec_helper'
+require 'rspec-puppet'
+
+fixture_path = File.expand_path(File.join(__FILE__, '..', 'fixtures'))
 
 RSpec.configure do |config|
   # FIXME REVISIT - We may want to delegate to Facter like we do in
@@ -25,4 +28,7 @@ RSpec.configure do |config|
     Facter.clear
     Facter.clear_messages
   end
+  config.module_path = File.join(fixture_path, 'modules')
+  config.manifest_dir = File.join(fixture_path, 'manifests')
+  config.color_enabled = true
 end

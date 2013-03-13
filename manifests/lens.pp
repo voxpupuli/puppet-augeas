@@ -31,10 +31,12 @@ define augeas::lens (
 ) {
 
   if (!$stock_since or !versioncmp($::augeasversion, $stock_since)) {
-    include augeas::base
+    if !declared(Class['augeas']) {
+      fail('You must declare the augeas class before using augeas::lens')
+    }
 
-    $lens_dest = "${augeas::base::lens_dir}/${name}.aug"
-    $test_dest = "${augeas::base::lens_dir}/tests/test_${name}.aug"
+    $lens_dest = "${augeas::lens_dir}/${name}.aug"
+    $test_dest = "${augeas::lens_dir}/tests/test_${name}.aug"
 
     file { $lens_dest:
       ensure => $ensure,
@@ -42,7 +44,7 @@ define augeas::lens (
     }
 
     exec { "Typecheck lens ${name}":
-      command     => "augparse -I ${augeas::base::lens_dir} ${lens_dest} || (rm -f ${lens_dest} && exit 1)",
+      command     => "augparse -I ${augeas::lens_dir} ${lens_dest} || (rm -f ${lens_dest} && exit 1)",
       refreshonly => true,
       subscribe   => File[$lens_dest],
     }
@@ -55,7 +57,7 @@ define augeas::lens (
       }
 
       exec { "Test lens ${name}":
-        command     => "augparse -I ${augeas::base::lens_dir} ${test_dest} || (rm -f ${lens_dest} && rm -f ${test_dest} && exit 1)",
+        command     => "augparse -I ${augeas::lens_dir} ${test_dest} || (rm -f ${lens_dest} && rm -f ${test_dest} && exit 1)",
         refreshonly => true,
         subscribe   => File[$lens_dest, $test_dest],
       }
