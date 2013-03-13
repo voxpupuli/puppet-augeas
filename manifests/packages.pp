@@ -5,7 +5,7 @@ class augeas::packages {
     default => $augeas::version
   }
 
-  package { $augeas::params::pkgs:
+  package { $augeas::params::augeas_pkgs:
     ensure => $augeas_ensure,
   }
 
