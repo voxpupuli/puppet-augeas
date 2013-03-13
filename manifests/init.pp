@@ -1,7 +1,10 @@
-class augeas {
-  case $::operatingsystem {
-    /RedHat|CentOS|Fedora/:   { include augeas::redhat }
-    /Debian|Ubuntu|kFreeBSD/: { include augeas::debian }
-    default:                  { include augeas::base }
-  }
+class augeas (
+  $version = $augeas_version,
+  $ruby_version = $augeas_ruby_version,
+  $lens_dir = $augeas::params::lens_dir,
+) inherits augeas::params {
+
+  class {'::augeas::packages': } ->
+  class {'::augeas::files': } ->
+  Class['augeas']
 }
