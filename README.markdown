@@ -11,9 +11,9 @@ Simple usage:
 The module provides an `augeas` class which installs and configures Augeas.
 
 
-* lets you force the augeas version by defining `$augeas\_version`, otherwise puppet will
+* lets you force the augeas version by defining `$augeas_version`, otherwise puppet will
    only ensure the packages are present;
-* lets you force the ruby library version by defining `$augeas\_ruby\_version`, otherwise puppet will
+* lets you force the ruby library version by defining `$augeas_ruby_version`, otherwise puppet will
    only ensure the libaugeas-ruby version will be installed according to internal critera;
 * provides an `augeas()` master-side function to manipulate strings using Augeas;
 
