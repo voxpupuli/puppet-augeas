@@ -15,7 +15,8 @@ class augeas::packages {
     default => $augeas::ruby_version
   }
 
-  package { $augeas::params::ruby_pkg:
+  package { 'ruby-augeas':
     ensure => $ruby_ensure,
+    name   => $augeas::params::ruby_pkg,
   }
 }

@@ -7,4 +7,6 @@ class augeas (
   class {'::augeas::packages': } ->
   class {'::augeas::files': } ->
   Class['augeas']
+
+  Package['ruby-augeas'] -> Augeas <| |>
 }
