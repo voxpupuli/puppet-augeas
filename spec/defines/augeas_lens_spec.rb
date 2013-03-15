@@ -1,14 +1,21 @@
 require 'spec_helper'
 
-describe 'with_lens' do
+describe 'augeas::lens' do
+  let (:title) { 'foo' }
   let (:facts) { {
     :osfamily => 'RedHat',
   } }
+  context 'when no lens_source is passed' do
+    it 'should error' do
+      expect {
+        should contain_file('/usr/share/augeas/lenses/foo.aug')
+      }.to raise_error(Puppet::Error, /Must pass lens_source/)
+    end
+  end
 
   context 'when lens_source is passed' do
-    let (:facts) { {
-      :osfamily           => 'RedHat',
-      :augeas_lens_source => '/tmp/foo.aug',
+    let (:params) { {
+      :lens_source => '/tmp/foo.aug',
     } }
 
     it { should contain_file('/usr/share/augeas/lenses/foo.aug') }
@@ -18,10 +25,9 @@ describe 'with_lens' do
   end
 
   context 'when lens_source and test_source are passed' do
-    let (:facts) { {
-      :osfamily           => 'RedHat',
-      :augeas_lens_source => '/tmp/foo.aug',
-      :augeas_test_source => '/tmp/test_foo.aug',
+    let (:params) { {
+      :lens_source => '/tmp/foo.aug',
+      :test_source => '/tmp/test_foo.aug',
     } }
 
     it { should contain_file('/usr/share/augeas/lenses/foo.aug') }
@@ -31,10 +37,13 @@ describe 'with_lens' do
   end
 
   context 'when stock_since is passed and augeas is older' do
+    let (:params) { {
+      :lens_source => '/tmp/foo.aug',
+      :stock_since => '1.2.3',
+    } }
+
     let (:facts) { {
-      :osfamily           => 'RedHat',
-      :augeas_lens_source => '/tmp/foo.aug',
-      :augeas_stock_since => '1.2.3',
+      :osfamily => 'RedHat',
       :augeasversion      => '1.0.0',
     } }
 
@@ -43,10 +52,13 @@ describe 'with_lens' do
   end
 
   context 'when stock_since is passed and augeas is newer' do
+    let (:params) { {
+      :lens_source => '/tmp/foo.aug',
+      :stock_since => '1.2.3',
+    } }
+
     let (:facts) { {
-      :osfamily           => 'RedHat',
-      :augeas_lens_source => '/tmp/foo.aug',
-      :augeas_stock_since => '1.2.3',
+      :osfamily => 'RedHat',
       :augeasversion      => '1.5.0',
     } }
 
