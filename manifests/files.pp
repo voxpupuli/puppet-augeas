@@ -1,15 +1,5 @@
-class augeas::base {
-  $lens_dir = '/usr/share/augeas/lenses'
-
-  $version = $augeas_version ? {
-    ''      => 'present',
-    default => $augeas_version
-  }
-
-  $rubylib_version = $augeas_ruby_version ? {
-    ''      => 'present',
-    default => $augeas_ruby_version
-  }
+class augeas::files {
+  $lens_dir = $augeas::lens_dir
 
   # ensure no file not managed by puppet ends up in there.
   file { $lens_dir:
