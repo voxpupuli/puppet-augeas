@@ -29,11 +29,11 @@ define augeas::lens (
   $test_source=false,
   $stock_since=false,
 ) {
+  if !defined(Class['augeas']) {
+    fail('You must declare the augeas class before using augeas::lens')
+  }
 
-  if (!$stock_since or !versioncmp($::augeasversion, $stock_since)) {
-    if !defined(Class['augeas']) {
-      fail('You must declare the augeas class before using augeas::lens')
-    }
+  if (!$stock_since or versioncmp($::augeasversion, $stock_since) < 0) {
 
     $lens_dest = "${augeas::lens_dir}/${name}.aug"
     $test_dest = "${augeas::lens_dir}/tests/test_${name}.aug"
