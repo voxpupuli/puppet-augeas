@@ -35,7 +35,7 @@ define augeas::lens (
 
   if (!$stock_since or versioncmp($::augeasversion, $stock_since) < 0) {
 
-    validate_re($augeas::lens_dir, '/.*', '$augeas::lens_dir must be a valid path')
+    validate_re($augeas::lens_dir, '/.*', "'${augeas::lens_dir}' is not a valid path for lens ${name}")
 
     $lens_dest = "${augeas::lens_dir}/${name}.aug"
     $test_dest = "${augeas::lens_dir}/tests/test_${name}.aug"
