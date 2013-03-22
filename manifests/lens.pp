@@ -1,28 +1,25 @@
-/*
-
-== Definition: augeas::lens
-
-Deploy an Augeas lens (and its test file).
-Check the lens (and run the unit tests) automatically and remove the files if
-the checks fail.
-
-Parameters:
-- *ensure*: present/absent
-- *lens_source*: the source for the lens
-- *test_source*: optionally, the source for the test file.
-- *stock_since*: optionally, indicate in which version of Augeas
-  the lens became stock, so it will not be deployed above that version.
-
-Example usage:
-
-  augeas::lens { 'networkmanager':
-    lens_source => 'puppet:///modules/networkmanager/lenses/networkmanager.aug',
-    test_source => 'puppet:///modules/networkmanager/lenses/test_networkmanager.aug',
-    stock_since => '1.0.0',
-  }
-
-*/
-
+# Definition: augeas::lens
+#
+# Deploy an Augeas lens (and its test file).
+# Check the lens (and run the unit tests) automatically and remove the files if
+# the checks fail.
+#
+# Parameters:
+#   ['ensure']       - present/absent
+#   ['lens_source']  - the source for the lens
+#   ['test_source']  - optionally, the source for the test file.
+#   ['stock_since']  - optionally, indicate in which version of Augeas
+#                      the lens became stock, so it will not be deployed
+#                      above that version.
+#
+# Example usage:
+#
+#   augeas::lens { 'networkmanager':
+#     lens_source => 'puppet:///modules/networkmanager/lenses/networkmanager.aug',
+#     test_source => 'puppet:///modules/networkmanager/lenses/test_networkmanager.aug',
+#     stock_since => '1.0.0',
+#   }
+#
 define augeas::lens (
   $lens_source,
   $ensure=present,
@@ -35,7 +32,11 @@ define augeas::lens (
 
   if (!$stock_since or versioncmp($::augeasversion, $stock_since) < 0) {
 
-    validate_re($augeas::lens_dir, '/.*', "'${augeas::lens_dir}' is not a valid path for lens ${name}")
+    validate_re(
+      $augeas::lens_dir,
+      '/.*',
+      "'${augeas::lens_dir}' is not a valid path for lens ${name}"
+    )
 
     $lens_dest = "${augeas::lens_dir}/${name}.aug"
     $test_dest = "${augeas::lens_dir}/tests/test_${name}.aug"

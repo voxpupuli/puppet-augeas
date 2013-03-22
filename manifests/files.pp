@@ -1,3 +1,7 @@
+# Class: augeas::files
+#
+# Sets up directories and files for Augeas
+#
 class augeas::files {
   $lens_dir = $augeas::lens_dir
 
