@@ -1,3 +1,7 @@
+# Class: augeas::params
+#
+# Default parameters for the Augeas module
+#
 class augeas::params {
   $lens_dir = '/usr/share/augeas/lenses'
 

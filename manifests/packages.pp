@@ -1,3 +1,7 @@
+# Class: augeas::packages
+#
+# Sets up packages for Augeas
+#
 class augeas::packages {
   # Augeas packages
   $augeas_ensure = $augeas::version ? {
