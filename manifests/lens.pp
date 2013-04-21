@@ -48,6 +48,7 @@ define augeas::lens (
 
     exec { "Typecheck lens ${name}":
       command     => "augparse -I ${augeas::lens_dir} ${lens_dest} || (rm -f ${lens_dest} && exit 1)",
+      path        => "${augeas::augparse_path}",
       refreshonly => true,
       subscribe   => File[$lens_dest],
     }
