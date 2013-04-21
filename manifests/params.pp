@@ -4,6 +4,7 @@
 #
 class augeas::params {
   $lens_dir = '/usr/share/augeas/lenses'
+  $augparse_path = '/usr/bin'
 
   case $::osfamily {
     'RedHat': {
