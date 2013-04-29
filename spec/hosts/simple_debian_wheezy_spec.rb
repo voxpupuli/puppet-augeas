@@ -1,9 +1,10 @@
 require 'spec_helper'
 
-describe 'simple_debian_squeeze' do
+describe 'simple_debian_wheezy' do
   let (:facts) { {
     :osfamily        => 'Debian',
     :lsbdistcodename => 'wheezy',
+    :rubyversion     => '1.9.1',
   } }
 
   context 'when versions are not specified' do
@@ -26,6 +27,7 @@ describe 'simple_debian_squeeze' do
     let (:facts) { {
       :osfamily            => 'Debian',
       :lsbdistcodename     => 'wheezy',
+      :rubyversion         => '1.9.1',
       :augeas_version      => '1.2.3',
       :augeas_ruby_version => '3.2.1',
     } }
@@ -68,6 +70,7 @@ describe 'simple_debian_squeeze' do
     let (:facts) { {
       :osfamily        => 'Debian',
       :lsbdistcodename => 'wheezy',
+      :rubyversion     => '1.9.1',
       :augeas_lens_dir => '/opt/augeas/lenses'
     } }
 
