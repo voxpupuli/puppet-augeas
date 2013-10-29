@@ -30,6 +30,12 @@ define augeas::lens (
     fail('You must declare the augeas class before using augeas::lens')
   }
 
+  File {
+    owner => 'root',
+    group => 'root',
+    mode => '0644',
+  }
+
   if (!$stock_since or versioncmp($::augeasversion, $stock_since) < 0) {
 
     validate_re(
