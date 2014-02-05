@@ -10,7 +10,7 @@ class augeas::params {
       $ruby_pkg = 'ruby-augeas'
       $augeas_pkgs = ['augeas', 'augeas-libs']
     }
-    
+
     'Suse': {
       $ruby_pkg = 'rubygem-ruby-augeas'
       $augeas_pkgs = ['augeas', 'augeas-lenses', 'libaugeas0' ]
