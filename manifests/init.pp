@@ -18,5 +18,5 @@ class augeas (
   class {'::augeas::files': } ->
   Class['augeas']
 
-  Package['ruby-augeas'] -> Augeas <| |>
+  Package['ruby-augeas', $augeas::params::augeas_pkgs] -> Augeas <| |>
 }
