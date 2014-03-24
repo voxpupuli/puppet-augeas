@@ -18,5 +18,9 @@ class augeas (
   class {'::augeas::files': } ->
   Class['augeas']
 
-  Package['ruby-augeas'] -> Augeas <| |>
+  if $::osfamily == 'Debian' {
+    Package['ruby-augeas', 'augeas-lenses'] -> Augeas <| |>
+  } else {
+    Package['ruby-augeas'] -> Augeas <| |>
+  }
 }
