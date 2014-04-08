@@ -8,10 +8,10 @@
 #   ['lens_dir']     - the lens directory to use
 #   ['purge']        - whether to purge lens directories
 class augeas (
-  $version = $augeas_version,
-  $ruby_version = $augeas_ruby_version,
-  $lens_dir = $augeas::params::lens_dir,
-  $purge = true,
+  $version      = present,
+  $ruby_version = present,
+  $lens_dir     = $augeas::params::lens_dir,
+  $purge        = true,
 ) inherits augeas::params {
 
   class {'::augeas::packages': } ->
