@@ -1,5 +1,7 @@
 # Augeas Puppet module
 
+[![Build Status](https://travis-ci.org/camptocamp/puppet-augeas.png?branch=master)](https://travis-ci.org/camptocamp/puppet-augeas)
+
 **Install and configure Augeas.**
 
 This module is provided by [Camptocamp](http://www.camptocamp.com/)
