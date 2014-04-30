@@ -40,7 +40,7 @@ describe 'simple_debian_squeeze' do
       :ensure => '1.2.3'
     ) }
     it { should contain_package('ruby-augeas').with(
-      :ensure => '3.2.1',
+      :ensure => 'present',
       :name   => 'libaugeas-ruby1.8'
     ) }
   end
