@@ -32,7 +32,7 @@ describe 'simple_redhat' do
       :ensure => '1.2.3'
     ) }
     it { should contain_package('ruby-augeas').with(
-      :ensure => '3.2.1',
+      :ensure => 'present',
       :name   => 'ruby-augeas'
     ) }
   end

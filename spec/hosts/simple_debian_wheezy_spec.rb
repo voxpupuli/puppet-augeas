@@ -42,7 +42,7 @@ describe 'simple_debian_wheezy' do
       :ensure => '1.2.3'
     ) }
     it { should contain_package('ruby-augeas').with(
-      :ensure => '3.2.1',
+      :ensure => 'present',
       :name   => 'libaugeas-ruby1.9.1'
     ) }
   end
