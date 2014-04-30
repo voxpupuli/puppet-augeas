@@ -6,6 +6,13 @@ describe 'simple_redhat' do
   } }
 
   context 'when versions are not specified' do
+    let (:facts) { {
+      :augeas_lens_dir     => :undef,
+      :augeas_ruby_version => :undef,
+      :augeas_version      => :undef,
+      :osfamily            => 'RedHat',
+    } }
+
     it { should contain_package('augeas').with(
       :ensure => 'present'
     ) }
@@ -21,6 +28,7 @@ describe 'simple_redhat' do
   context 'when versions are specified' do
     let (:facts) { {
       :osfamily            => 'RedHat',
+      :augeas_lens_dir     => :undef,
       :augeas_version      => '1.2.3',
       :augeas_ruby_version => '3.2.1',
     } }
@@ -38,6 +46,13 @@ describe 'simple_redhat' do
   end
 
   context 'with standard lens_dir' do
+    let (:facts) { {
+      :augeas_lens_dir     => :undef,
+      :augeas_ruby_version => :undef,
+      :augeas_version      => :undef,
+      :osfamily            => 'RedHat',
+    } }
+
     it { should contain_file('/usr/share/augeas/lenses').with(
       :ensure       => 'directory',
       :purge        => 'true',
@@ -58,8 +73,10 @@ describe 'simple_redhat' do
 
   context 'with a non standard lens_dir' do
     let (:facts) { {
-      :osfamily        => 'RedHat',
-      :augeas_lens_dir => '/opt/augeas/lenses'
+      :augeas_lens_dir     => '/opt/augeas/lenses',
+      :augeas_ruby_version => :undef,
+      :augeas_version      => :undef,
+      :osfamily            => 'RedHat',
     } }
 
     it { should contain_file('/opt/augeas/lenses').with(

@@ -9,6 +9,8 @@ describe 'with_lens' do
     let (:facts) { {
       :osfamily           => 'RedHat',
       :augeas_lens_source => '/tmp/foo.aug',
+      :augeas_stock_since => :undef,
+      :augeas_test_source => :undef,
     } }
 
     it { should contain_file('/usr/share/augeas/lenses/foo.aug') }
@@ -22,6 +24,7 @@ describe 'with_lens' do
       :osfamily           => 'RedHat',
       :augeas_lens_source => '/tmp/foo.aug',
       :augeas_test_source => '/tmp/test_foo.aug',
+      :augeas_stock_since => :undef,
     } }
 
     it { should contain_file('/usr/share/augeas/lenses/foo.aug') }
@@ -36,6 +39,7 @@ describe 'with_lens' do
       :augeas_lens_source => '/tmp/foo.aug',
       :augeas_stock_since => '1.2.3',
       :augeasversion      => '1.0.0',
+      :augeas_test_source => :undef,
     } }
 
     it { should contain_file('/usr/share/augeas/lenses/foo.aug') }
@@ -48,6 +52,7 @@ describe 'with_lens' do
       :augeas_lens_source => '/tmp/foo.aug',
       :augeas_stock_since => '1.2.3',
       :augeasversion      => '1.5.0',
+      :augeas_test_source => :undef,
     } }
 
     it { should_not contain_file('/usr/share/augeas/lenses/foo.aug') }

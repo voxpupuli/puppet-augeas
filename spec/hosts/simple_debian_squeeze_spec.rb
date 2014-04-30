@@ -2,11 +2,23 @@ require 'spec_helper'
 
 describe 'simple_debian_squeeze' do
   let (:facts) { {
-    :osfamily        => 'Debian',
-    :lsbdistcodename => 'squeeze',
+    :augeas_lens_dir     => :undef,
+    :augeas_ruby_version => :undef,
+    :augeas_version      => :undef,
+    :lsbdistcodename     => 'squeeze',
+    :osfamily            => 'Debian',
   } }
 
   context 'when versions are not specified' do
+    let (:facts) { {
+      :augeas_lens_dir     => :undef,
+      :augeas_version      => :undef,
+      :augeas_ruby_version => :undef,
+      :lsbdistcodename     => 'squeeze',
+      :osfamily            => 'Debian',
+      :rubyversion         => '1.8.7',
+    } }
+
     it { should contain_package('libaugeas0').with(
       :ensure => 'present'
     ) }
@@ -26,8 +38,10 @@ describe 'simple_debian_squeeze' do
     let (:facts) { {
       :osfamily            => 'Debian',
       :lsbdistcodename     => 'squeeze',
+      :augeas_lens_dir     => :undef,
       :augeas_version      => '1.2.3',
       :augeas_ruby_version => '3.2.1',
+      :rubyversion         => '1.8.7',
     } }
 
     it { should contain_package('libaugeas0').with(
@@ -46,6 +60,15 @@ describe 'simple_debian_squeeze' do
   end
 
   context 'with standard lens_dir' do
+    let (:facts) { {
+      :augeas_lens_dir     => :undef,
+      :augeas_ruby_version => :undef,
+      :augeas_version      => :undef,
+      :lsbdistcodename     => 'squeeze',
+      :osfamily            => 'Debian',
+      :rubyversion         => '1.8.7',
+    } }
+
     it { should contain_file('/usr/share/augeas/lenses').with(
       :ensure       => 'directory',
       :purge        => 'true',
@@ -66,9 +89,12 @@ describe 'simple_debian_squeeze' do
 
   context 'with a non standard lens_dir' do
     let (:facts) { {
-      :osfamily        => 'Debian',
-      :lsbdistcodename => 'squeeze',
-      :augeas_lens_dir => '/opt/augeas/lenses'
+      :augeas_lens_dir     => '/opt/augeas/lenses',
+      :augeas_ruby_version => :undef,
+      :augeas_version      => :undef,
+      :lsbdistcodename     => 'squeeze',
+      :osfamily            => 'Debian',
+      :rubyversion         => '1.8.7',
     } }
 
     it { should contain_file('/opt/augeas/lenses').with(

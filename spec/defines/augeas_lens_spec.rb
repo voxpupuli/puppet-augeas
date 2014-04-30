@@ -3,7 +3,10 @@ require 'spec_helper'
 describe 'augeas::lens' do
   let (:title) { 'foo' }
   let (:facts) { {
-    :osfamily => 'RedHat',
+    :augeas_lens_dir     => :undef,
+    :augeas_ruby_version => :undef,
+    :augeas_version      => :undef,
+    :osfamily            => 'RedHat',
   } }
   context 'when no lens_source is passed' do
     it 'should error' do
@@ -43,8 +46,11 @@ describe 'augeas::lens' do
     } }
 
     let (:facts) { {
-      :osfamily => 'RedHat',
-      :augeasversion      => '1.0.0',
+      :augeas_lens_dir     => :undef,
+      :augeas_version      => :undef,
+      :augeasversion       => '1.0.0',
+      :augeas_ruby_version => :undef,
+      :osfamily            => 'RedHat',
     } }
 
     it { should contain_file('/usr/share/augeas/lenses/foo.aug') }
@@ -58,8 +64,11 @@ describe 'augeas::lens' do
     } }
 
     let (:facts) { {
-      :osfamily => 'RedHat',
-      :augeasversion      => '1.5.0',
+      :augeas_lens_dir     => :undef,
+      :augeas_version      => :undef,
+      :augeasversion       => '1.5.0',
+      :augeas_ruby_version => :undef,
+      :osfamily            => 'RedHat',
     } }
 
     it { should_not contain_file('/usr/share/augeas/lenses/foo.aug') }
