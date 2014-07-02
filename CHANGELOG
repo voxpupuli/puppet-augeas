@@ -1,0 +1,4 @@
+2014-07-02 - Version 0.3.0
+
+- Add purge parameter
+- Cleanup unscoped variables

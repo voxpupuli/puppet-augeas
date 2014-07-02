@@ -1,5 +1,5 @@
 name         'camptocamp-augeas'
-version      '0.2.1'
+version      '0.3.0'
 dependency   'puppetlabs/stdlib', '>= 3.2.0'
 source       'https://github.com/camptocamp/puppet-augeas'
 license      'GNU GPLv3'
