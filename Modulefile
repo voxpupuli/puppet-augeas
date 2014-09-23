@@ -1,8 +1,0 @@
-name         'camptocamp-augeas'
-version      '0.3.0'
-dependency   'puppetlabs/stdlib', '>= 3.2.0'
-source       'https://github.com/camptocamp/puppet-augeas'
-license      'GNU GPLv3'
-summary      'Camptocamp Augeas module'
-description  'Augeas Module for Puppet'
-project_page 'https://github.com/camptocamp/puppet-augeas'

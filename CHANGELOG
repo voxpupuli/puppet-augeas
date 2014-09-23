@@ -1,4 +1,7 @@
-2014-07-02 - Version 0.3.0
+##2014-09-23 - Version 0.3.1
+- Centralize metadata files
 
+##2014-07-02 - Version 0.3.0
+###Summary
 - Add purge parameter
 - Cleanup unscoped variables
