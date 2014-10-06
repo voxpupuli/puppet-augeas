@@ -1,3 +1,6 @@
+##2014-10-06 - Version 0.3.2
+- Remove symlink in spec/ directory (Fix #40)
+
 ##2014-09-23 - Version 0.3.1
 - Centralize metadata files
 
