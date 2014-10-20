@@ -1,3 +1,7 @@
+##2014-10-20 - Version 1.0.0
+- Linting
+- Setup automatic Forge releases
+
 ##2014-10-06 - Version 0.3.2
 - Remove symlink in spec/ directory (Fix #40)
 
