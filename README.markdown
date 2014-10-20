@@ -1,5 +1,6 @@
 # Augeas Puppet module
 
+[![Puppet Forge](http://img.shields.io/puppetforge/v/camptocamp/augeas.svg)](https://forge.puppetlabs.com/camptocamp/augeas)
 [![Build Status](https://travis-ci.org/camptocamp/puppet-augeas.png?branch=master)](https://travis-ci.org/camptocamp/puppet-augeas)
 
 **Install and configure Augeas.**
