@@ -26,11 +26,11 @@ class augeas::files {
   }
 
   file { "${lens_dir}/tests":
-    ensure  => directory,
-    purge   => $::augeas::purge,
-    force   => true,
-    mode    => '0644',
-    owner   => 'root',
-    group   => 'root',
+    ensure => directory,
+    purge  => $::augeas::purge,
+    force  => true,
+    mode   => '0644',
+    owner  => 'root',
+    group  => 'root',
   }
 }
