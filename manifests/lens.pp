@@ -36,6 +36,10 @@ define augeas::lens (
     mode => '0644',
   }
 
+  Exec {
+    path => $::path,
+  }
+
   if (!$stock_since or versioncmp($::augeasversion, $stock_since) < 0) {
 
     validate_re(
