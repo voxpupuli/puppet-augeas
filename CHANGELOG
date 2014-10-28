@@ -1,3 +1,6 @@
+##2014-10-28 - Version 1.0.1
+- Add path to exec in augeas::lens
+
 ##2014-10-20 - Version 1.0.0
 - Linting
 - Setup automatic Forge releases
