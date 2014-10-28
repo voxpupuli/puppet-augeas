@@ -7,6 +7,7 @@ describe 'augeas::lens' do
     :augeas_ruby_version => :undef,
     :augeas_version      => :undef,
     :osfamily            => 'RedHat',
+    :path                => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
   } }
   context 'when no lens_source is passed' do
     it 'should error' do
@@ -51,6 +52,7 @@ describe 'augeas::lens' do
       :augeasversion       => '1.0.0',
       :augeas_ruby_version => :undef,
       :osfamily            => 'RedHat',
+      :path                => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
     } }
 
     it { should contain_file('/usr/share/augeas/lenses/foo.aug') }
@@ -69,6 +71,7 @@ describe 'augeas::lens' do
       :augeasversion       => '1.5.0',
       :augeas_ruby_version => :undef,
       :osfamily            => 'RedHat',
+      :path                => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
     } }
 
     it { should_not contain_file('/usr/share/augeas/lenses/foo.aug') }
