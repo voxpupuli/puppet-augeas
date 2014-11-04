@@ -1,3 +1,8 @@
+##2014-11-04 - Version 1.0.2
+
+- Fix path in unit tests
+- Drop Puppet 2.7 support
+
 ##2014-10-28 - Version 1.0.1
 - Add path to exec in augeas::lens
 
