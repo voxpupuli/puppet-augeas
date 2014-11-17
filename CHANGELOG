@@ -1,3 +1,7 @@
+##2014-11-17 - Version 1.0.3
+
+- Lint metadata.json
+
 ##2014-11-04 - Version 1.0.2
 
 - Fix path in unit tests
