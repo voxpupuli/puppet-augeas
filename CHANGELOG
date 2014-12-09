@@ -1,3 +1,9 @@
+##2014-12-09 - Version 1.1.0
+
+- Add future parser tests
+- Convert specs to rspec3 syntax
+- Fix metadata.json
+
 ##2014-11-17 - Version 1.0.3
 
 - Lint metadata.json
