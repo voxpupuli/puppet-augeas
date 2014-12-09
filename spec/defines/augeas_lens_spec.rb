@@ -12,7 +12,7 @@ describe 'augeas::lens' do
   context 'when no lens_source is passed' do
     it 'should error' do
       expect {
-        should contain_file('/usr/share/augeas/lenses/foo.aug')
+        is_expected.to contain_file('/usr/share/augeas/lenses/foo.aug')
       }.to raise_error(Puppet::Error, /Must pass lens_source/)
     end
   end
@@ -22,10 +22,10 @@ describe 'augeas::lens' do
       :lens_source => '/tmp/foo.aug',
     } }
 
-    it { should contain_file('/usr/share/augeas/lenses/foo.aug') }
-    it { should contain_exec('Typecheck lens foo') }
-    it { should_not contain_file('/usr/share/augeas/lenses/tests/test_foo.aug') }
-    it { should_not contain_exec('Test lens foo') }
+    it { is_expected.to contain_file('/usr/share/augeas/lenses/foo.aug') }
+    it { is_expected.to contain_exec('Typecheck lens foo') }
+    it { is_expected.not_to contain_file('/usr/share/augeas/lenses/tests/test_foo.aug') }
+    it { is_expected.not_to contain_exec('Test lens foo') }
   end
 
   context 'when lens_source and test_source are passed' do
@@ -34,10 +34,10 @@ describe 'augeas::lens' do
       :test_source => '/tmp/test_foo.aug',
     } }
 
-    it { should contain_file('/usr/share/augeas/lenses/foo.aug') }
-    it { should contain_exec('Typecheck lens foo') }
-    it { should contain_file('/usr/share/augeas/lenses/tests/test_foo.aug') }
-    it { should contain_exec('Test lens foo') }
+    it { is_expected.to contain_file('/usr/share/augeas/lenses/foo.aug') }
+    it { is_expected.to contain_exec('Typecheck lens foo') }
+    it { is_expected.to contain_file('/usr/share/augeas/lenses/tests/test_foo.aug') }
+    it { is_expected.to contain_exec('Test lens foo') }
   end
 
   context 'when stock_since is passed and augeas is older' do
@@ -55,8 +55,8 @@ describe 'augeas::lens' do
       :path                => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
     } }
 
-    it { should contain_file('/usr/share/augeas/lenses/foo.aug') }
-    it { should contain_exec('Typecheck lens foo') }
+    it { is_expected.to contain_file('/usr/share/augeas/lenses/foo.aug') }
+    it { is_expected.to contain_exec('Typecheck lens foo') }
   end
 
   context 'when stock_since is passed and augeas is newer' do
@@ -74,7 +74,7 @@ describe 'augeas::lens' do
       :path                => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
     } }
 
-    it { should_not contain_file('/usr/share/augeas/lenses/foo.aug') }
-    it { should_not contain_exec('Typecheck lens foo') }
+    it { is_expected.not_to contain_file('/usr/share/augeas/lenses/foo.aug') }
+    it { is_expected.not_to contain_exec('Typecheck lens foo') }
   end
 end

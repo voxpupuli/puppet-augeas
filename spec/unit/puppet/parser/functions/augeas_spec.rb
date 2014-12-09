@@ -10,7 +10,7 @@ describe 'the augeas function' do
   end
 
   it "should exist" do
-    Puppet::Parser::Functions.function("augeas").should == "function_augeas"
+    expect(Puppet::Parser::Functions.function("augeas")).to eq("function_augeas")
   end
 
   context "when passing wrong arguments" do
@@ -57,13 +57,13 @@ describe 'the augeas function' do
     context "when applying valid changes" do
       it "should remove the 3rd option" do
         result = scope.function_augeas(["proc        /proc   proc    nodev,noexec,nosuid     0       0\n", 'Fstab.lns', ['rm ./1/opt[3]']])
-        result.class.should == String
+        expect(result.class).to eq(String)
         #result.should == "proc       /proc   proc    nodev,noexec     0       0\n"
       end
 
       it "should set a 4th option" do
         result = scope.function_augeas(["proc        /proc   proc    nodev,noexec,nosuid     0       0\n", 'Fstab.lns', ['ins opt after ./1/opt[last()]', 'set ./1/opt[last()] nofoo']])
-        result.class.should == String
+        expect(result.class).to eq(String)
         #result.should == "proc       /proc   proc    nodev,noexec,nosuid,nofoo     0       0\n"
       end
     end

@@ -13,13 +13,13 @@ describe 'simple_redhat' do
       :osfamily            => 'RedHat',
     } }
 
-    it { should contain_package('augeas').with(
+    it { is_expected.to contain_package('augeas').with(
       :ensure => 'present'
     ) }
-    it { should contain_package('augeas-libs').with(
+    it { is_expected.to contain_package('augeas-libs').with(
       :ensure => 'present'
     ) }
-    it { should contain_package('ruby-augeas').with(
+    it { is_expected.to contain_package('ruby-augeas').with(
       :ensure => 'present',
       :name   => 'ruby-augeas'
     ) }
@@ -33,13 +33,13 @@ describe 'simple_redhat' do
       :augeas_ruby_version => '3.2.1',
     } }
 
-    it { should contain_package('augeas').with(
+    it { is_expected.to contain_package('augeas').with(
       :ensure => '1.2.3'
     ) }
-    it { should contain_package('augeas-libs').with(
+    it { is_expected.to contain_package('augeas-libs').with(
       :ensure => '1.2.3'
     ) }
-    it { should contain_package('ruby-augeas').with(
+    it { is_expected.to contain_package('ruby-augeas').with(
       :ensure => '3.2.1',
       :name   => 'ruby-augeas'
     ) }
@@ -53,18 +53,18 @@ describe 'simple_redhat' do
       :osfamily            => 'RedHat',
     } }
 
-    it { should contain_file('/usr/share/augeas/lenses').with(
+    it { is_expected.to contain_file('/usr/share/augeas/lenses').with(
       :ensure       => 'directory',
       :purge        => 'true',
       :force        => 'true',
       :recurse      => 'true',
       :recurselimit => 1
     ) }
-    it { should contain_file('/usr/share/augeas/lenses/dist').with(
+    it { is_expected.to contain_file('/usr/share/augeas/lenses/dist').with(
       :ensure       => 'directory',
       :purge        => 'false'
     ) }
-    it { should contain_file('/usr/share/augeas/lenses/tests').with(
+    it { is_expected.to contain_file('/usr/share/augeas/lenses/tests').with(
       :ensure       => 'directory',
       :purge        => 'true',
       :force        => 'true'
@@ -79,18 +79,18 @@ describe 'simple_redhat' do
       :osfamily            => 'RedHat',
     } }
 
-    it { should contain_file('/opt/augeas/lenses').with(
+    it { is_expected.to contain_file('/opt/augeas/lenses').with(
       :ensure       => 'directory',
       :purge        => 'true',
       :force        => 'true',
       :recurse      => 'true',
       :recurselimit => 1
     ) }
-    it { should contain_file('/opt/augeas/lenses/dist').with(
+    it { is_expected.to contain_file('/opt/augeas/lenses/dist').with(
       :ensure       => 'directory',
       :purge        => 'false'
     ) }
-    it { should contain_file('/opt/augeas/lenses/tests').with(
+    it { is_expected.to contain_file('/opt/augeas/lenses/tests').with(
       :ensure       => 'directory',
       :purge        => 'true',
       :force        => 'true'

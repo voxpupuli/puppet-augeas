@@ -10,6 +10,6 @@ describe 'wrong_os' do
   } }
 
   it 'should fail' do
-    expect { should contain_package('ruby-augeas') }.to raise_error(Puppet::Error, /Unsupported OS family/)
+    expect { is_expected.to contain_package('ruby-augeas') }.to raise_error(Puppet::Error, /Unsupported OS family/)
   end
 end

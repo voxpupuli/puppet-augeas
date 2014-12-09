@@ -19,16 +19,16 @@ describe 'simple_debian_squeeze' do
       :rubyversion         => '1.8.7',
     } }
 
-    it { should contain_package('libaugeas0').with(
+    it { is_expected.to contain_package('libaugeas0').with(
       :ensure => 'present'
     ) }
-    it { should contain_package('augeas-tools').with(
+    it { is_expected.to contain_package('augeas-tools').with(
       :ensure => 'present'
     ) }
-    it { should contain_package('augeas-lenses').with(
+    it { is_expected.to contain_package('augeas-lenses').with(
       :ensure => 'present'
     ) }
-    it { should contain_package('ruby-augeas').with(
+    it { is_expected.to contain_package('ruby-augeas').with(
       :ensure => 'present',
       :name   => 'libaugeas-ruby1.8'
     ) }
@@ -44,16 +44,16 @@ describe 'simple_debian_squeeze' do
       :rubyversion         => '1.8.7',
     } }
 
-    it { should contain_package('libaugeas0').with(
+    it { is_expected.to contain_package('libaugeas0').with(
       :ensure => '1.2.3'
     ) }
-    it { should contain_package('augeas-tools').with(
+    it { is_expected.to contain_package('augeas-tools').with(
       :ensure => '1.2.3'
     ) }
-    it { should contain_package('augeas-lenses').with(
+    it { is_expected.to contain_package('augeas-lenses').with(
       :ensure => '1.2.3'
     ) }
-    it { should contain_package('ruby-augeas').with(
+    it { is_expected.to contain_package('ruby-augeas').with(
       :ensure => '3.2.1',
       :name   => 'libaugeas-ruby1.8'
     ) }
@@ -69,18 +69,18 @@ describe 'simple_debian_squeeze' do
       :rubyversion         => '1.8.7',
     } }
 
-    it { should contain_file('/usr/share/augeas/lenses').with(
+    it { is_expected.to contain_file('/usr/share/augeas/lenses').with(
       :ensure       => 'directory',
       :purge        => 'true',
       :force        => 'true',
       :recurse      => 'true',
       :recurselimit => 1
     ) }
-    it { should contain_file('/usr/share/augeas/lenses/dist').with(
+    it { is_expected.to contain_file('/usr/share/augeas/lenses/dist').with(
       :ensure       => 'directory',
       :purge        => 'false'
     ) }
-    it { should contain_file('/usr/share/augeas/lenses/tests').with(
+    it { is_expected.to contain_file('/usr/share/augeas/lenses/tests').with(
       :ensure       => 'directory',
       :purge        => 'true',
       :force        => 'true'
@@ -97,18 +97,18 @@ describe 'simple_debian_squeeze' do
       :rubyversion         => '1.8.7',
     } }
 
-    it { should contain_file('/opt/augeas/lenses').with(
+    it { is_expected.to contain_file('/opt/augeas/lenses').with(
       :ensure       => 'directory',
       :purge        => 'true',
       :force        => 'true',
       :recurse      => 'true',
       :recurselimit => 1
     ) }
-    it { should contain_file('/opt/augeas/lenses/dist').with(
+    it { is_expected.to contain_file('/opt/augeas/lenses/dist').with(
       :ensure       => 'directory',
       :purge        => 'false'
     ) }
-    it { should contain_file('/opt/augeas/lenses/tests').with(
+    it { is_expected.to contain_file('/opt/augeas/lenses/tests').with(
       :ensure       => 'directory',
       :purge        => 'true',
       :force        => 'true'
