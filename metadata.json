@@ -46,9 +46,6 @@
         "5",
         "6"
       ]
-    },
-    {
-      "operatingsystem": "SLES"
     }
   ],
   "puppet_version": [
