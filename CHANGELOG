@@ -1,3 +1,8 @@
+##2015-01-12 - Version 1.1.5
+
+- Fix LICENSE file
+- Add some puppet-lint plugins to Gemfile
+
 ##2015-01-07 - Version 1.1.4
 
 - Manage unit tests with rspec-puppet-facts
