@@ -18,5 +18,7 @@ class augeas (
   class {'::augeas::files': } ->
   Class['augeas']
 
+  # lint:ignore:spaceship_operator_without_tag
   Package['ruby-augeas', $augeas::params::augeas_pkgs] -> Augeas <| |>
+  # lint:endignore
 }

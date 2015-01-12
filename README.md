@@ -24,6 +24,9 @@ The module provides an `augeas` class which installs and configures Augeas.
    only ensure the libaugeas-ruby version will be installed according to internal critera;
 * provides an `augeas()` master-side function to manipulate strings using Augeas;
 
+Note: the `augeas` class realizes all `augeas` resources in order to ensure they are managed after the required Augeas packages.
+
+
 ### Definitions
 
 #### `augeas::lens`
