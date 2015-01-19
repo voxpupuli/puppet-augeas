@@ -1,3 +1,7 @@
+## 2015-01-19 - Release 1.1.6
+
+- Add puppet-ling plugins
+
 ##2015-01-12 - Release 1.1.5
 
 - Fix LICENSE file
