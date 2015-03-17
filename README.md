@@ -36,18 +36,22 @@ The `augeas::lens` definition allows you to deploy an Augeas lens and any associ
 Parameters:
 
 - *ensure*: present/absent
-- *lens_source*: the source for the lens
-- *test_source*: optionally, the source for the test file.
+- *lens_content*: the content of the lens
+- *lens_source*: deprecated, the source for the lens
+- *test_content*: optionally, the content of the test file
+- *test_source*: deprecated, the source for the test file.
 - *stock_since*: optionally, indicate in which version of Augeas
   the lens became stock, so it will not be deployed above that version.
 
 Example usage:
 
-     augeas::lens { 'networkmanager':
-      lens_source => 'puppet:///modules/networkmanager/lenses/networkmanager.aug',
-      test_source => 'puppet:///modules/networkmanager/lenses/test_networkmanager.aug',
-      stock_since => '1.0.0',
-     }
+```puppet
+augeas::lens { 'networkmanager':
+  lens_content => file('networkmanager/lenses/networkmanager.aug'),
+  test_content => file('networkmanager/lenses/test_networkmanager.aug'),
+  stock_since  => '1.0.0',
+}
+```
 
 ### Functions
 

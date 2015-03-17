@@ -37,7 +37,7 @@ describe 'augeas::lens' do
             it 'should error' do
               expect {
                 is_expected.to contain_file('/usr/share/augeas/lenses/foo.aug')
-              }.to raise_error(Puppet::Error, /Must pass lens_source/)
+              }.to raise_error(Puppet::Error, /You must set either \$lens_source or \$lens_content/)
             end
           end
 
