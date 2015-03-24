@@ -1,3 +1,8 @@
+## 2015-03-24 - Release 1.2.0
+
+- Add lens_content and test_content to augeas::lens
+- Fix augeas() function
+
 ## 2015-03-24 - Release 1.1.7
 
 - Fix for SUSE
