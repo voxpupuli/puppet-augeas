@@ -1,3 +1,7 @@
+## 2015-03-24 - Release 1.1.7
+
+- Fix for SUSE
+
 ## 2015-01-19 - Release 1.1.6
 
 - Add puppet-ling plugins
