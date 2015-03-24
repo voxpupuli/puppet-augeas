@@ -6,7 +6,9 @@
 #
 # Parameters:
 #   ['ensure']       - present/absent
+#   ['lens_content'] - the content of the lens
 #   ['lens_source']  - the source for the lens
+#   ['test_content'] - optionally, the content of the test
 #   ['test_source']  - optionally, the source for the test file.
 #   ['stock_since']  - optionally, indicate in which version of Augeas
 #                      the lens became stock, so it will not be deployed
@@ -15,19 +17,41 @@
 # Example usage:
 #
 #   augeas::lens { 'networkmanager':
-#     lens_source => 'puppet:///modules/networkmanager/lenses/networkmanager.aug',
-#     test_source => 'puppet:///modules/networkmanager/lenses/test_networkmanager.aug',
-#     stock_since => '1.0.0',
+#     lens_content => file('networkmanager/lenses/networkmanager.aug'),
+#     test_content => file('networkmanager/lenses/test_networkmanager.aug'),
+#     stock_since  => '1.0.0',
 #   }
 #
 define augeas::lens (
-  $lens_source,
-  $ensure=present,
-  $test_source=false,
-  $stock_since=false,
+  $ensure       = present,
+  $lens_content = undef,
+  $lens_source  = undef,
+  $test_content = undef,
+  $test_source  = undef,
+  $stock_since  = false,
 ) {
   if !defined(Class['augeas']) {
     fail('You must declare the augeas class before using augeas::lens')
+  }
+
+  if $lens_source != undef {
+    if $lens_content != undef {
+      fail "You can't set both \$lens_source and \$lens_content"
+    } else {
+      warning 'Passing "lens_source" is deprecated; please use "lens_content"'
+    }
+  } else {
+    if $lens_content == undef {
+      fail "You must set either \$lens_source or \$lens_content"
+    }
+  }
+
+  if $test_source != undef {
+    if $test_content != undef {
+      fail "You can't set both \$test_source and \$test_content"
+    } else {
+      warning 'Passing "test_source" is deprecated; please use "test_content"'
+    }
   }
 
   File {
@@ -52,8 +76,9 @@ define augeas::lens (
     $test_dest = "${augeas::lens_dir}/tests/test_${name}.aug"
 
     file { $lens_dest:
-      ensure => $ensure,
-      source => $lens_source,
+      ensure  => $ensure,
+      source  => $lens_source,
+      content => $lens_content,
     }
 
     exec { "Typecheck lens ${name}":
@@ -64,9 +89,10 @@ define augeas::lens (
 
     if $test_source {
       file { $test_dest:
-        ensure => $ensure,
-        source => $test_source,
-        notify => Exec["Test lens ${name}"],
+        ensure  => $ensure,
+        source  => $test_source,
+        content => $test_content,
+        notify  => Exec["Test lens ${name}"],
       }
 
       exec { "Test lens ${name}":
