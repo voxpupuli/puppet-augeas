@@ -36,7 +36,7 @@ Would result in:
     aug = Augeas::open(nil, nil, Augeas::NO_MODL_AUTOLOAD)
     augeas_version = aug.get('/augeas/version')
     raise(Puppet::ParseError, 'augeas(): requires Augeas 1.0.0 or greater') unless Puppet::Util::Package.versioncmp(augeas_version, '1.0.0') >= 0
-    raise(Puppet::ParseError, 'augeas(): requires ruby-augeas 0.5.0 or greater') unless aug.methods.include?('text_store')
+    raise(Puppet::ParseError, 'augeas(): requires ruby-augeas 0.5.0 or greater') unless aug.methods.include?(:text_store)
 
     result = nil
     begin
