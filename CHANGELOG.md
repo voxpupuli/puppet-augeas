@@ -1,3 +1,7 @@
+## 2015-04-03 - Release 1.2.1
+
+- Confine rspec pinning to ruby 1.8
+
 ## 2015-03-24 - Release 1.2.0
 
 - Add lens_content and test_content to augeas::lens
