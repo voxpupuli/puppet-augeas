@@ -87,7 +87,7 @@ define augeas::lens (
       subscribe   => File[$lens_dest],
     }
 
-    if $test_source {
+    if $test_source or $test_content {
       file { $test_dest:
         ensure  => $ensure,
         source  => $test_source,
