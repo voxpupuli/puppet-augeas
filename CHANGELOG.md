@@ -1,3 +1,7 @@
+## 2015-04-14 - Release 1.2.2
+
+- Fix lens test with content but no source
+
 ## 2015-04-03 - Release 1.2.1
 
 - Confine rspec pinning to ruby 1.8
