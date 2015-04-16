@@ -30,9 +30,7 @@ define augeas::lens (
   $test_source  = undef,
   $stock_since  = false,
 ) {
-  if !defined(Class['augeas']) {
-    fail('You must declare the augeas class before using augeas::lens')
-  }
+  include ::augeas
 
   if $lens_source != undef {
     if $lens_content != undef {
