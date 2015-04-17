@@ -1,3 +1,7 @@
+## 2015-04-17 - Release 1.2.3
+
+- Add beaker nodesets
+
 ## 2015-04-14 - Release 1.2.2
 
 - Fix lens test with content but no source
