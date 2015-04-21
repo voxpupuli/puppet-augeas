@@ -3,7 +3,12 @@
 # Default parameters for the Augeas module
 #
 class augeas::params {
-  $lens_dir = '/usr/share/augeas/lenses'
+
+  if versioncmp($::puppetversion, '4.0.0') >= 0 {
+    $lens_dir = '/opt/puppetlabs/puppet/share/augeas/lenses'
+  } else {
+    $lens_dir = '/usr/share/augeas/lenses'
+  }
 
   case $::osfamily {
     'RedHat': {
