@@ -14,12 +14,19 @@ class augeas (
   $purge        = true,
 ) inherits augeas::params {
 
-  anchor { 'augeas::begin': } ->
-  class {'::augeas::packages': } ->
-  class {'::augeas::files': } ->
-  anchor { 'augeas::end': }
+  if versioncmp($::puppetversion, '4.0.0') >= 0 {
+    anchor { 'augeas::begin': } ->
+    class {'::augeas::files': } ->
+    anchor { 'augeas::end': }
+  } else {
+    anchor { 'augeas::begin': } ->
+    class {'::augeas::packages': } ->
+    class {'::augeas::files': } ->
+    anchor { 'augeas::end': }
 
-  # lint:ignore:spaceship_operator_without_tag
-  Package['ruby-augeas', $augeas::params::augeas_pkgs] -> Augeas <| |>
-  # lint:endignore
+    # lint:ignore:spaceship_operator_without_tag
+    Package['ruby-augeas', $augeas::params::augeas_pkgs] -> Augeas <| |>
+    # lint:endignore
+  }
+
 }

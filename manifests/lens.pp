@@ -60,8 +60,14 @@ define augeas::lens (
     mode => '0644',
   }
 
-  Exec {
-    path => $::path,
+  if versioncmp($::puppetversion, '4.0.0') >= 0 {
+    Exec {
+      path => "${::path}:/opt/puppetlabs/puppet/bin",
+    }
+  } else {
+    Exec {
+      path => $::path,
+    }
   }
 
   if (!$stock_since or versioncmp($::augeasversion, $stock_since) < 0) {
