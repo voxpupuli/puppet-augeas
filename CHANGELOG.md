@@ -1,3 +1,7 @@
+## 2015-04-27 - Release 1.2.4
+
+Add nodeset ubuntu-12.04-x86_64-openstack
+
 ## 2015-04-17 - Release 1.2.3
 
 - Add beaker nodesets
