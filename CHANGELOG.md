@@ -1,3 +1,7 @@
+## 2015-05-13 - Release 1.2.7
+
+Fix source_without_rights warning
+
 ## 2015-05-13 - Release 1.2.6
 
 Add puppet-lint-file_source_rights-check gem
