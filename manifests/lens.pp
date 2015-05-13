@@ -75,11 +75,13 @@ define augeas::lens (
     $lens_dest = "${augeas::lens_dir}/${name}.aug"
     $test_dest = "${augeas::lens_dir}/tests/test_${name}.aug"
 
+    # lint:ignore:source_without_rights
     file { $lens_dest:
       ensure  => $ensure,
       source  => $lens_source,
       content => $lens_content,
     }
+    # lint:endignore
 
     exec { "Typecheck lens ${name}":
       command     => "augparse -I ${augeas::lens_dir} ${lens_dest} || (rm -f ${lens_dest} && exit 1)",
@@ -88,12 +90,14 @@ define augeas::lens (
     }
 
     if $test_source or $test_content {
+      # lint:ignore:source_without_rights
       file { $test_dest:
         ensure  => $ensure,
         source  => $test_source,
         content => $test_content,
         notify  => Exec["Test lens ${name}"],
       }
+      # lint:endignore
 
       exec { "Test lens ${name}":
         command     => "augparse -I ${augeas::lens_dir} ${test_dest} || (rm -f ${lens_dest} && rm -f ${test_dest} && exit 1)",
