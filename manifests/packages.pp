@@ -9,6 +9,6 @@ class augeas::packages {
 
   package { 'ruby-augeas':
     ensure => $::augeas::ruby_version,
-    name   => $::augeas::params::ruby_pkg,
+    name   => $::augeas::ruby_package,
   }
 }
