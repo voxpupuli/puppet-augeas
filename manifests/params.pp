@@ -12,13 +12,13 @@ class augeas::params {
     }
 
     'Suse': {
-        # RPM Sources: https://build.opensuse.org/project/show/systemsmanagement:puppet
-      # SLES 11 SP3
-      if versioncmp($::rubyversion, '1.8.7') >= 0 {
-        $ruby_pkg = 'ruby1.8-rubygem-ruby-augeas'
-      # SLES 12
-      } else {
+      # RPM Sources: https://build.opensuse.org/project/show/systemsmanagement:puppet
+      if versioncmp($::rubyversion, '2.1.2') >= 0 {
+        # SLES 12 / openSUSE
         $ruby_pkg = 'ruby2.1-rubygem-ruby-augeas'
+      } else {
+        # SLES 11 SP3
+        $ruby_pkg = 'ruby1.8-rubygem-ruby-augeas'
       }
       $augeas_pkgs = ['augeas', 'augeas-lenses', 'libaugeas0' ]
     }
