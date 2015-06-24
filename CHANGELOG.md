@@ -1,3 +1,7 @@
+## 2015-06-24 - Release 1.2.12
+
+fix the ruby-augeas gem installation on SLES and openSUSE
+
 ## 2015-05-28 - Release 1.2.11
 
 Add beaker_spec_helper to Gemfile
