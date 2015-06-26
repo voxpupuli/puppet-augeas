@@ -1,3 +1,7 @@
+## 2015-06-26 - Release 1.2.13
+
+Fix strict_variables activation with rspec-puppet 2.2
+
 ## 2015-06-24 - Release 1.2.12
 
 fix the ruby-augeas gem installation on SLES and openSUSE
