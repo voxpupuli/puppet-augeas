@@ -25,6 +25,7 @@ describe 'augeas::lens' do
           facts.merge({
             :augeasversion => :undef,
             :puppetversion => Puppet.version,
+            :is_pe         => false,
           })
         end
 

@@ -7,6 +7,7 @@ describe 'augeas' do
       {
         :osfamily      => 'MS-DOS',
         :puppetversion => Puppet.version,
+        :is_pe         => false,
       }
     end
 
@@ -22,6 +23,7 @@ describe 'augeas' do
       let(:facts) do
         facts.merge({
           :puppetversion => Puppet.version,
+          :is_pe         => false,
         })
       end
 
@@ -152,6 +154,39 @@ describe 'augeas' do
           :force        => 'true'
         ).without(:recurse) }
       end
+
+      context 'with Puppet Enterprise' do
+        let (:facts) do
+          facts.merge({
+            :puppetversion => Puppet.version,
+            :is_pe         => true,
+          })
+        end
+
+        if Puppet::Util::Package.versioncmp(Puppet.version, '4.0.0') >= 0
+            # the enterprise lens dir is the same in 4
+            pe_lens_dir = lens_dir
+        else
+            pe_lens_dir = '/opt/puppet/share/augeas/lenses'
+        end
+
+        it { is_expected.to contain_file(pe_lens_dir).with(
+          :ensure       => 'directory',
+          :force        => 'true',
+          :recurse      => 'true',
+          :recurselimit => 1
+        ) }
+        it { is_expected.to contain_file("#{pe_lens_dir}/dist").with(
+          :ensure  => 'directory',
+          :purge   => 'false'
+        ) }
+        it { is_expected.to contain_file("#{pe_lens_dir}/tests").with(
+          :ensure => 'directory',
+          :force  => 'true',
+          :purge  => 'true'
+        ).without(:recurse) }
+      end
+
     end
   end
 end

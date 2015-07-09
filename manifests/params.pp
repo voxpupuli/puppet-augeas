@@ -6,6 +6,9 @@ class augeas::params {
 
   if versioncmp($::puppetversion, '4.0.0') >= 0 {
     $lens_dir = '/opt/puppetlabs/puppet/share/augeas/lenses'
+  } elsif (str2bool($::is_pe)) {
+    # puppet enterpise has a different lens location
+    $lens_dir = '/opt/puppet/share/augeas/lenses'
   } else {
     $lens_dir = '/usr/share/augeas/lenses'
   }
