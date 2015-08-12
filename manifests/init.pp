@@ -14,9 +14,10 @@ class augeas (
   $purge        = true,
 ) inherits augeas::params {
 
+  anchor { 'augeas::begin': } ->
   class {'::augeas::packages': } ->
   class {'::augeas::files': } ->
-  Class['augeas']
+  anchor { 'augeas::end': }
 
   # lint:ignore:spaceship_operator_without_tag
   Package['ruby-augeas', $augeas::params::augeas_pkgs] -> Augeas <| |>
