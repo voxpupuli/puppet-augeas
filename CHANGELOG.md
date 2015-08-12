@@ -1,3 +1,9 @@
+## 2015-08-12 - Release 1.3.0
+
+Add puppet AIO packaging support
+Allow setting package name of ruby augeas bindings
+Add support for Amazon Linux AMI
+
 ## 2015-06-26 - Release 1.2.13
 
 Fix strict_variables activation with rspec-puppet 2.2
