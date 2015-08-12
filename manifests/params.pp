@@ -12,7 +12,11 @@ class augeas::params {
 
   case $::osfamily {
     'RedHat': {
-      $ruby_pkg = 'ruby-augeas'
+      $ruby_pkg = $::operatingsystem ? {
+        # Amazon Linux AMI (2014.09 and 2015.03) uses ruby 2.0
+        'Amazon' => 'ruby20-augeas',
+        default => 'ruby-augeas'
+      }
       $augeas_pkgs = ['augeas', 'augeas-libs']
     }
 
