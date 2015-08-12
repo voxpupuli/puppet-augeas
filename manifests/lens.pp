@@ -60,16 +60,6 @@ define augeas::lens (
     mode => '0644',
   }
 
-  if versioncmp($::puppetversion, '4.0.0') >= 0 {
-    Exec {
-      path => "${::path}:/opt/puppetlabs/puppet/bin",
-    }
-  } else {
-    Exec {
-      path => $::path,
-    }
-  }
-
   if (!$stock_since or versioncmp($::augeasversion, $stock_since) < 0) {
 
     validate_re(
@@ -91,6 +81,7 @@ define augeas::lens (
 
     exec { "Typecheck lens ${name}":
       command     => "augparse -I ${augeas::lens_dir} ${lens_dest} || (rm -f ${lens_dest} && exit 1)",
+      path        => $::path,
       refreshonly => true,
       subscribe   => File[$lens_dest],
     }
@@ -107,6 +98,7 @@ define augeas::lens (
 
       exec { "Test lens ${name}":
         command     => "augparse -I ${augeas::lens_dir} ${test_dest} || (rm -f ${lens_dest} && rm -f ${test_dest} && exit 1)",
+        path        => $::path,
         refreshonly => true,
         subscribe   => File[$lens_dest, $test_dest],
       }
