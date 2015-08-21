@@ -1,3 +1,7 @@
+## 2015-08-21 - Release 1.3.1
+
+Use docker for acceptance tests
+
 ## 2015-08-12 - Release 1.3.0
 
 Add puppet AIO packaging support
