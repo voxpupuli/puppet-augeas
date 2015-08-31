@@ -1,3 +1,7 @@
+## 2015-08-31 - Release 1.4.1
+
+Fix use of is_pe fact for Puppet open-source
+
 ## 2015-08-31 - Release 1.4.0
 
 Add support for Puppet Enterprise paths
