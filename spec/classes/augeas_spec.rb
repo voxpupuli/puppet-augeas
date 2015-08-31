@@ -7,7 +7,6 @@ describe 'augeas' do
       {
         :osfamily      => 'MS-DOS',
         :puppetversion => Puppet.version,
-        :is_pe         => false,
       }
     end
 
@@ -23,7 +22,6 @@ describe 'augeas' do
       let(:facts) do
         facts.merge({
           :puppetversion => Puppet.version,
-          :is_pe         => false,
         })
       end
 
