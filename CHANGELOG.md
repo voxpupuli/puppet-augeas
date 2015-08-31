@@ -1,3 +1,7 @@
+## 2015-08-31 - Release 1.4.0
+
+Add support for Puppet Enterprise paths
+
 ## 2015-08-21 - Release 1.3.1
 
 Use docker for acceptance tests
