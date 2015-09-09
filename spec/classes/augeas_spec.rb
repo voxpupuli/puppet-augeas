@@ -50,6 +50,11 @@ describe 'augeas' do
                 :name   => 'libaugeas-ruby1.8'
               ) }
             else
+              let(:facts) do
+                super().merge({
+                  :rubyversion => '1.9.3',
+                })
+              end
               it { is_expected.to contain_package('ruby-augeas').with(
                 :ensure => 'present',
                 :name   => 'libaugeas-ruby1.9.1'
@@ -118,6 +123,11 @@ describe 'augeas' do
                 :name   => 'libaugeas-ruby1.8'
               ) }
             else
+              let(:facts) do
+                super().merge({
+                  :rubyversion => '1.9.3',
+                })
+              end
               it { is_expected.to contain_package('ruby-augeas').with(
                 :ensure => '3.2.1',
                 :name   => 'libaugeas-ruby1.9.1'
