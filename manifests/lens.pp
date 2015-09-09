@@ -81,7 +81,7 @@ define augeas::lens (
 
     exec { "Typecheck lens ${name}":
       command     => "augparse -I ${augeas::lens_dir} ${lens_dest} || (rm -f ${lens_dest} && exit 1)",
-      path        => $::path,
+      path        => "/opt/puppetlabs/puppet/bin:${::path}",
       refreshonly => true,
       subscribe   => File[$lens_dest],
     }
@@ -98,7 +98,7 @@ define augeas::lens (
 
       exec { "Test lens ${name}":
         command     => "augparse -I ${augeas::lens_dir} ${test_dest} || (rm -f ${lens_dest} && rm -f ${test_dest} && exit 1)",
-        path        => $::path,
+        path        => "/opt/puppetlabs/puppet/bin:${::path}",
         refreshonly => true,
         subscribe   => File[$lens_dest, $test_dest],
       }
