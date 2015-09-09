@@ -1,3 +1,7 @@
+## 2015-09-09 - Release 1.4.2
+
+Fix for puppet AIO packaging
+
 ## 2015-08-31 - Release 1.4.1
 
 Fix use of is_pe fact for Puppet open-source
