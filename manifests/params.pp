@@ -36,8 +36,8 @@ class augeas::params {
     }
 
     'Debian': {
-      if ($::operatingsystem == 'Ubuntu') {
-	$ruby_pkg = 'ruby-augeas'
+      if ( ($::operatingsystem == 'Ubuntu') and (versioncmp($::operatingsystemrelease, '15.10') >= 0 ) ) {
+      	$ruby_pkg = 'ruby-augeas'
       }
       else {
         if versioncmp($::rubyversion, '1.9.1') >= 0 {
