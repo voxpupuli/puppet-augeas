@@ -36,7 +36,10 @@ class augeas::params {
     }
 
     'Debian': {
-      if versioncmp($::rubyversion, '1.9.1') >= 0 {
+      if versioncmp($::rubyversion, '2.1.0') >= 0 {
+        $ruby_pkg = 'ruby-augeas'
+      }
+      elsif versioncmp($::rubyversion, '1.9.1') >= 0 {
         $ruby_pkg = 'libaugeas-ruby1.9.1'
       } else {
         $ruby_pkg = 'libaugeas-ruby1.8'
