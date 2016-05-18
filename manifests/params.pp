@@ -36,14 +36,19 @@ class augeas::params {
     }
 
     'Debian': {
-      if versioncmp($::rubyversion, '2.1.0') >= 0 {
+      if ( ($::operatingsystem == 'Ubuntu') and (versioncmp($::operatingsystemrelease, '15.10') >= 0 ) ) {
         $ruby_pkg = 'ruby-augeas'
       }
-      elsif versioncmp($::rubyversion, '1.9.1') >= 0 {
-        $ruby_pkg = 'libaugeas-ruby1.9.1'
-      } else {
-        $ruby_pkg = 'libaugeas-ruby1.8'
-      }
+      else {
+        if versioncmp($::rubyversion, '2.3.0') == 0 {
+          $ruby_pkg = 'ruby-augeas'
+        } elsif
+          versioncmp($::rubyversion, '1.9.1') >= 0 {
+            $ruby_pkg = 'libaugeas-ruby1.9.1'
+          } else {
+            $ruby_pkg = 'libaugeas-ruby1.8'
+          }
+        }
       $augeas_pkgs = ['augeas-lenses', 'libaugeas0', 'augeas-tools']
     }
 
