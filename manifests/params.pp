@@ -6,7 +6,7 @@ class augeas::params {
 
   if versioncmp($::puppetversion, '4.0.0') >= 0 {
     $lens_dir = '/opt/puppetlabs/puppet/share/augeas/lenses'
-  } elsif (defined('$is_pe') and str2bool($::is_pe)) { # lint:ignore:only_variable_string
+  } elsif (defined('$is_pe') and str2bool("$::is_pe")) { # lint:ignore:only_variable_string
     # puppet enterpise has a different lens location
     $lens_dir = '/opt/puppet/share/augeas/lenses'
   } else {
@@ -42,7 +42,7 @@ class augeas::params {
       else {
         if versioncmp($::rubyversion, '2.3.0') == 0 {
           $ruby_pkg = 'ruby-augeas'
-          } elsif 
+        } elsif
           versioncmp($::rubyversion, '1.9.1') >= 0 {
             $ruby_pkg = 'libaugeas-ruby1.9.1'
           } else {
