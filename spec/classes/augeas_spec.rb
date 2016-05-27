@@ -5,8 +5,7 @@ describe 'augeas' do
   context 'when on an unsupported Operating System' do
     let (:facts) do
       {
-        :osfamily      => 'MS-DOS',
-        :puppetversion => Puppet.version,
+        :osfamily => 'MS-DOS',
       }
     end
 
@@ -20,9 +19,7 @@ describe 'augeas' do
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) do
-        facts.merge({
-          :puppetversion => Puppet.version,
-        })
+        facts
       end
 
       context 'without params' do
@@ -176,8 +173,7 @@ describe 'augeas' do
       context 'with Puppet Enterprise' do
         let (:facts) do
           facts.merge({
-            :puppetversion => Puppet.version,
-            :is_pe         => true,
+            :is_pe => true,
           })
         end
 
