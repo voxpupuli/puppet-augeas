@@ -19,19 +19,17 @@ describe 'augeas::lens' do
 
   context 'when declaring augeas class first' do
 
+    let(:pre_condition) do
+      "class { '::augeas': }"
+    end
+
     on_supported_os.each do |os, facts|
       context "on #{os}" do
         let(:facts) do
-          facts.merge({
-            :augeasversion => :undef,
-          })
+          facts
         end
 
         context 'With standard augeas version' do
-
-          let(:pre_condition) do
-            "class { '::augeas': }"
-          end
 
           context 'when no lens_source is passed' do
             it 'should error' do
@@ -75,8 +73,10 @@ describe 'augeas::lens' do
             }
           end
 
-          let(:pre_condition) do
-            "class { '::augeas': version => '1.0.0' }"
+          let(:facts) do
+            super().merge({
+              :augeasversion => '1.0.0',
+            })
           end
 
           it { is_expected.to contain_file("#{lens_dir}/foo.aug") }
@@ -91,16 +91,16 @@ describe 'augeas::lens' do
             }
           end
 
-          let(:pre_condition) do
-            "class { '::augeas': version => '1.3.0' }"
+          let(:facts) do
+            super().merge({
+              :augeasversion => '1.3.0',
+            })
           end
 
           it do
-            pending "undefined method `negative_failure_message'"
             is_expected.not_to contain_file("#{lens_dir}/foo.aug")
           end
           it do
-            pending "undefined method `negative_failure_message'"
             is_expected.not_to contain_exec('Typecheck lens foo')
           end
         end
