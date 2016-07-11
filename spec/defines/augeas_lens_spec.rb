@@ -3,26 +3,9 @@ require 'spec_helper'
 describe 'augeas::lens' do
   let (:title) { 'foo' }
 
-  context 'when not declaring augeas class first' do
-    let (:params) do
-      {
-        :lens_source => '/tmp/foo.aug',
-      }
-    end
-
-    it 'should error' do
-      expect { is_expected.to compile }.to raise_error(/You must declare the augeas class/)
-    end
-  end
-
   lens_dir = Puppet.version < '4.0.0' ? '/usr/share/augeas/lenses' : '/opt/puppetlabs/puppet/share/augeas/lenses'
 
   context 'when declaring augeas class first' do
-
-    let(:pre_condition) do
-      "class { '::augeas': }"
-    end
-
     on_supported_os.each do |os, facts|
       context "on #{os}" do
         let(:facts) do
