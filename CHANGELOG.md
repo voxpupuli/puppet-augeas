@@ -1,3 +1,7 @@
+## 2017-01-09 - Release 1.6.0
+
+- Deprecate Puppet 2 and 3
+
 ## 2016-08-19 - Release 1.5.1
 
 - Fix Travis CI tests
