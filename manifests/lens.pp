@@ -66,8 +66,10 @@ define augeas::lens (
       "'${augeas::lens_dir}' is not a valid path for lens ${name}"
     )
 
-    $lens_dest = "${augeas::lens_dir}/${name}.aug"
-    $test_dest = "${augeas::lens_dir}/tests/test_${name}.aug"
+    $lens_name = "${name}.aug"
+    $lens_dest = "${augeas::lens_dir}/${lens_name}"
+    $test_name = "tests/test_${name}.aug"
+    $test_dest = "${augeas::lens_dir}/${test_name}"
 
     # lint:ignore:source_without_rights
     file { $lens_dest:
@@ -78,7 +80,8 @@ define augeas::lens (
     # lint:endignore
 
     exec { "Typecheck lens ${name}":
-      command     => "augparse -I ${augeas::lens_dir} ${lens_dest} || (rm -f ${lens_dest} && exit 1)",
+      command     => "augparse -I . ${lens_name} || (rm -f ${lens_name} && exit 1)",
+      cwd         => $augeas::lens_dir,
       path        => "/opt/puppetlabs/puppet/bin:${::path}",
       refreshonly => true,
       subscribe   => File[$lens_dest],
@@ -95,7 +98,8 @@ define augeas::lens (
       # lint:endignore
 
       exec { "Test lens ${name}":
-        command     => "augparse -I ${augeas::lens_dir} ${test_dest} || (rm -f ${lens_dest} && rm -f ${test_dest} && exit 1)",
+        command     => "augparse -I . ${test_name} || (rm -f ${lens_name} && rm -f ${test_name}.aug && exit 1)",
+        cwd         => $augeas::lens_dir,
         path        => "/opt/puppetlabs/puppet/bin:${::path}",
         refreshonly => true,
         subscribe   => File[$lens_dest, $test_dest],
