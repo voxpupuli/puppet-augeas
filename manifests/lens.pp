@@ -60,11 +60,7 @@ define augeas::lens (
 
   if (!$stock_since or versioncmp($::augeasversion, $stock_since) < 0) {
 
-    validate_re(
-      $augeas::lens_dir,
-      '/.*',
-      "'${augeas::lens_dir}' is not a valid path for lens ${name}"
-    )
+    assert_type(Pattern[/^\/.*/], $augeas::lens_dir)
 
     $lens_name = "${name}.aug"
     $lens_dest = "${augeas::lens_dir}/${lens_name}"
