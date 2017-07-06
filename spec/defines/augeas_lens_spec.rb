@@ -3,7 +3,11 @@ require 'spec_helper'
 describe 'augeas::lens' do
   let(:title) { 'foo' }
 
-  lens_dir = (Puppet.version < '4.0.0') ? '/usr/share/augeas/lenses' : '/opt/puppetlabs/puppet/share/augeas/lenses'
+  if Puppet.version >= '4.0.0' and facts[:rubysitedir] =~ /\/opt\/puppetlabs\/puppet/
+    lens_dir = '/opt/puppetlabs/puppet/share/augeas/lenses'
+  else
+    lens_dir = '/usr/share/augeas/lenses'
+  end
 
   context 'when declaring augeas class first' do
     on_supported_os.each do |os, facts|
