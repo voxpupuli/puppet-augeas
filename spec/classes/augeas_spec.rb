@@ -14,7 +14,11 @@ describe 'augeas' do
     end
   end
 
-  lens_dir = Puppet.version < '4.0.0' ? '/usr/share/augeas/lenses' : '/opt/puppetlabs/puppet/share/augeas/lenses'
+  if Puppet.version >= '4.0.0' and facts[:rubysitedir] =~ /\/opt\/puppetlabs\/puppet/
+    lens_dir = '/opt/puppetlabs/puppet/share/augeas/lenses'
+  else
+    lens_dir = '/usr/share/augeas/lenses'
+  end
 
   on_supported_os.each do |os, facts|
     context "on #{os}" do
