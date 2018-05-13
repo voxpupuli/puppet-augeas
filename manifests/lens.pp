@@ -58,7 +58,7 @@ define augeas::lens (
     mode => '0644',
   }
 
-  if (!$stock_since or versioncmp($::augeasversion, $stock_since) < 0) {
+  if (!$stock_since or versioncmp("${::augeasversion}", $stock_since) < 0) {
 
     assert_type(Pattern[/^\/.*/], $augeas::lens_dir)
 
