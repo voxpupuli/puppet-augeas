@@ -38,6 +38,11 @@ class augeas::params {
       $augeas_pkgs = ['augeas-lenses', 'libaugeas0', 'augeas-tools']
     }
 
+    'FreeBSD': {
+      $ruby_pkg = 'rubygem-ruby-augeas'
+      $augeas_pkgs = ['augeas']
+    }
+
     default:  { fail("Unsupported OS family: ${::osfamily}") }
   }
 
