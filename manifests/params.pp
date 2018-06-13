@@ -22,6 +22,7 @@ class augeas::params {
       }
       $augeas_pkgs = ['augeas', 'augeas-libs']
       $lens_dir = "${lens_prefix}/share/augeas/lenses"
+      $root_group = 'root'
     }
 
     'Suse': {
@@ -35,6 +36,7 @@ class augeas::params {
       }
       $augeas_pkgs = ['augeas', 'augeas-lenses', 'libaugeas0' ]
       $lens_dir = "${lens_prefix}/share/augeas/lenses"
+      $root_group = 'root'
     }
 
     'Debian': {
@@ -48,12 +50,14 @@ class augeas::params {
       }
       $augeas_pkgs = ['augeas-lenses', 'libaugeas0', 'augeas-tools']
       $lens_dir = "${lens_prefix}/share/augeas/lenses"
+      $root_group = 'root'
     }
 
     'FreeBSD': {
       $ruby_pkg = 'rubygem-ruby-augeas'
       $augeas_pkgs = ['augeas']
       $lens_dir = '/usr/local/share/augeas/lenses'
+      $root_group = 'wheel'
     }
 
     default:  { fail("Unsupported OS family: ${::osfamily}") }

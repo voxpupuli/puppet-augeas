@@ -14,7 +14,7 @@ class augeas::files {
     recurselimit => 1,
     mode         => '0644',
     owner        => 'root',
-    group        => 'root',
+    group        => $::augeas::params::root_group,
   }
 
   file { "${lens_dir}/dist":
@@ -22,7 +22,7 @@ class augeas::files {
     purge  => false,
     mode   => '0644',
     owner  => 'root',
-    group  => 'root',
+    group  => $::augeas::params::root_group,
   }
 
   file { "${lens_dir}/tests":
@@ -31,6 +31,6 @@ class augeas::files {
     force  => true,
     mode   => '0644',
     owner  => 'root',
-    group  => 'root',
+    group  => $::augeas::params::root_group,
   }
 }

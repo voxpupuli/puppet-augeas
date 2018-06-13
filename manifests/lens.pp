@@ -54,7 +54,7 @@ define augeas::lens (
 
   File {
     owner => 'root',
-    group => 'root',
+    group => $::augeas::params::root_group,
     mode => '0644',
   }
 
