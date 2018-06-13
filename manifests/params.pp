@@ -4,6 +4,15 @@
 #
 class augeas::params {
 
+  if versioncmp($::puppetversion, '4.0.0') >= 0 {
+    $lens_prefix = '/opt/puppetlabs/puppet'
+  } elsif (defined('$is_pe') and str2bool("${::is_pe}")) { # lint:ignore:only_variable_string
+    # puppet enterpise has a different lens location
+    $lens_prefix = '/opt/puppet'
+  } else {
+    $lens_prefix = '/usr'
+  }
+
   case $::osfamily {
     'RedHat': {
       $ruby_pkg = $::operatingsystem ? {
@@ -12,6 +21,7 @@ class augeas::params {
         default => 'ruby-augeas'
       }
       $augeas_pkgs = ['augeas', 'augeas-libs']
+      $lens_dir = "${lens_prefix}/share/augeas/lenses"
     }
 
     'Suse': {
@@ -24,6 +34,7 @@ class augeas::params {
         $ruby_pkg = 'ruby1.8-rubygem-ruby-augeas'
       }
       $augeas_pkgs = ['augeas', 'augeas-lenses', 'libaugeas0' ]
+      $lens_dir = "${lens_prefix}/share/augeas/lenses"
     }
 
     'Debian': {
@@ -36,23 +47,18 @@ class augeas::params {
         $ruby_pkg = 'libaugeas-ruby1.8'
       }
       $augeas_pkgs = ['augeas-lenses', 'libaugeas0', 'augeas-tools']
+      $lens_dir = "${lens_prefix}/share/augeas/lenses"
     }
 
     'FreeBSD': {
       $ruby_pkg = 'rubygem-ruby-augeas'
       $augeas_pkgs = ['augeas']
+      $lens_dir = '/usr/local/share/augeas/lenses'
     }
 
     default:  { fail("Unsupported OS family: ${::osfamily}") }
   }
 
-  if versioncmp($::puppetversion, '4.0.0') >= 0 {
-    $lens_dir = '/opt/puppetlabs/puppet/share/augeas/lenses'
-  } elsif (defined('$is_pe') and str2bool("${::is_pe}")) { # lint:ignore:only_variable_string
-    # puppet enterpise has a different lens location
-    $lens_dir = '/opt/puppet/share/augeas/lenses'
-  } else {
-    $lens_dir = '/usr/share/augeas/lenses'
-  }
+
 
 }
