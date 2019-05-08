@@ -8,16 +8,11 @@
   "project_page": "https://github.com/camptocamp/puppet-augeas",
   "issues_url": "https://github.com/camptocamp/puppet-augeas/issues",
   "description": "Augeas Module for Puppet",
-  "dependencies": [
-    {
-      "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 3.2.0 < 6.0.0"
-    }
-  ],
+  "dependencies": [],
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 4.10.0 < 6.0.0"
+      "version_requirement": ">= 4.10.0 < 7.0.0"
     }
   ],
   "operatingsystem_support": [
