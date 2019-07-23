@@ -1,3 +1,7 @@
+## 2019-07-23 - Release 1.8.0
+
+- Allow Puppet 6 and remove stdlib dependency (GH #73)
+
 ## 2018-09-03 - Release 1.7.0
 
 - Remove pe requirements
