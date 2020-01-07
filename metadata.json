@@ -7,13 +7,8 @@
   "source": "https://github.com/camptocamp/puppet-augeas",
   "project_page": "https://github.com/camptocamp/puppet-augeas",
   "issues_url": "https://github.com/camptocamp/puppet-augeas/issues",
-  "description": "Augeas Module for Puppet",
-  "dependencies": [],
-  "requirements": [
-    {
-      "name": "puppet",
-      "version_requirement": ">= 4.10.0 < 7.0.0"
-    }
+  "dependencies": [
+
   ],
   "operatingsystem_support": [
     {
@@ -48,5 +43,15 @@
     {
       "operatingsystem": "Archlinux"
     }
-  ]
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.10.0 < 7.0.0"
+    }
+  ],
+  "description": "Augeas Module for Puppet",
+  "pdk-version": "1.14.1",
+  "template-url": "pdk-default#1.14.1",
+  "template-ref": "1.14.1-0-g0b5b39b"
 }
