@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe 'the augeas function' do
   let(:scope) { PuppetlabsSpec::PuppetInternals.scope }
+  let(:aug) { Augeas.open(nil, nil, Augeas::NO_MODL_AUTOLOAD) }
 
   it 'fails if the augeas feature is not present' do
     Puppet.features.expects(:augeas?).returns(false)
@@ -69,12 +70,14 @@ describe 'the augeas function' do
 
     context 'when using old libs' do
       it 'does not work with Augeas prior to 1.0.0' do
-        Augeas.any_instance.expects(:get).with('/augeas/version').returns('0.10.0')
+        expect(Augeas).to receive(:open).and_return(aug)
+        expect(aug).to receive(:get).with('/augeas/version').and_return('0.10.0')
         expect { scope.function_augeas(["\n", 'Fstab.lns', []]) }.to raise_error(Puppet::ParseError, %r{requires Augeas 1\.0\.0})
       end
 
       it 'does not work with ruby-augeas prior to 0.5.0' do
-        Augeas.any_instance.expects(:methods).returns([])
+        expect(Augeas).to receive(:open).and_return(aug)
+        expect(aug).to receive(:methods).and_return([])
         expect { scope.function_augeas(["\n", 'Fstab.lns', []]) }.to raise_error(Puppet::ParseError, %r{requires ruby-augeas 0\.5\.0})
       end
     end
