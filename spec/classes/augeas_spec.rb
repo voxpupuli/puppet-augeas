@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'augeas' do
   context 'when on an unsupported Operating System' do
-    let (:facts) do
+    let(:facts) do
       {
         osfamily: 'MS-DOS',
       }
@@ -108,7 +108,7 @@ describe 'augeas' do
       end
 
       context 'when versions are specified' do
-        let (:params) do
+        let(:params) do
           {
             version: '1.2.3',
             ruby_version: '3.2.1',
@@ -179,7 +179,7 @@ describe 'augeas' do
       end
 
       context 'with a non standard lens_dir' do
-        let (:params) do
+        let(:params) do
           {
             lens_dir: '/opt/augeas/lenses',
           }
@@ -210,7 +210,7 @@ describe 'augeas' do
       end
 
       context 'with Puppet Enterprise' do
-        let (:facts) do
+        let(:facts) do
           facts.merge(is_pe: true)
         end
 

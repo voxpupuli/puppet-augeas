@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'augeas::lens' do
-  let (:title) { 'foo' }
+  let(:title) { 'foo' }
 
   lens_dir = (Puppet.version < '4.0.0') ? '/usr/share/augeas/lenses' : '/opt/puppetlabs/puppet/share/augeas/lenses'
 
@@ -20,7 +20,7 @@ describe 'augeas::lens' do
           end
 
           context 'when lens_source is passed' do
-            let (:params) do
+            let(:params) do
               {
                 lens_source: '/tmp/foo.aug',
               }
@@ -33,7 +33,7 @@ describe 'augeas::lens' do
           end
 
           context 'when lens_source and test_source are passed' do
-            let (:params) do
+            let(:params) do
               {
                 lens_source: '/tmp/foo.aug',
                 test_source: '/tmp/test_foo.aug',
@@ -48,7 +48,7 @@ describe 'augeas::lens' do
         end
 
         context 'when stock_since is passed and augeas is older' do
-          let (:params) do
+          let(:params) do
             {
               lens_source: '/tmp/foo.aug',
               stock_since: '1.2.3',
@@ -64,7 +64,7 @@ describe 'augeas::lens' do
         end
 
         context 'when stock_since is passed and augeas is newer' do
-          let (:params) do
+          let(:params) do
             {
               lens_source: '/tmp/foo.aug',
               stock_since: '1.2.3',
