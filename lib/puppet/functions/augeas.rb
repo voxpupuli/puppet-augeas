@@ -1,38 +1,39 @@
+# @summary
+#   Modifies a string using Augeas.
 #
-# augeas.rb
+# *Example:*
 #
+#    augeas("proc        /proc   proc    nodev,noexec,nosuid     0       0
+# ", 'Fstab.lns', ['rm ./1/opt[3]'])
+#
+# Would result in:
+#
+#    "proc        /proc   proc    nodev,noexec     0       0
+# "
+#
+Puppet::Functions.create_function(:augeas) do
+  # @param content
+  #   The string to modify.
+  #
+  # @param lens
+  #   The lens to use for parsing.
+  #
+  # @param changes
+  #   An array of changes to apply to the string.
+  #
+  # @return [String]
+  #   The resulting string.
+  #
+  dispatch :apply_changes do
+    param 'String', :content
+    param 'String', :lens
+    param 'Array[String]', :changes
+  end
 
-module Puppet::Parser::Functions
-  newfunction(:augeas, type: :rvalue, doc: <<-EOS
-Modifies a string using Augeas.
-
-*Example:*
-
-    augeas("proc        /proc   proc    nodev,noexec,nosuid     0       0\n", 'Fstab.lns', ['rm ./1/opt[3]'])
-
-Would result in:
-
-    "proc        /proc   proc    nodev,noexec     0       0\n"
-    EOS
-             ) do |arguments|
+  def apply_changes(content, lens, changes)
     unless Puppet.features.augeas?
       raise Puppet::ParseError, 'augeas(): this function requires the augeas feature. See http://projects.puppetlabs.com/projects/puppet/wiki/Puppet_Augeas#Pre-requisites for how to activate it.'
     end
-
-    # Check that 2 arguments have been given ...
-    if arguments.size != 3
-      raise(Puppet::ParseError, 'augeas(): Wrong number of arguments ' \
-        "given (#{arguments.size} for 3)")
-    end
-
-    content = arguments[0]
-    lens = arguments[1]
-    changes = arguments[2]
-
-    # Check arguments
-    raise(Puppet::ParseError, 'augeas(): content must be a string') unless content.is_a?(String)
-    raise(Puppet::ParseError, 'augeas(): lens must be a string') unless lens.is_a?(String)
-    raise(Puppet::ParseError, 'augeas(): changes must be an array') unless changes.is_a?(Array)
 
     require 'augeas'
     aug = Augeas.open(nil, nil, Augeas::NO_MODL_AUTOLOAD)
@@ -63,8 +64,6 @@ Would result in:
     ensure
       aug.close
     end
-    return result
+    result
   end
 end
-
-# vim: set ts=2 sw=2 et :
