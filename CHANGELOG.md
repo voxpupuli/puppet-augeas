@@ -1,3 +1,9 @@
+## 2020-01-08 - Release 1.9.0
+
+- Support Archlinux osfamily (GH #74)
+- Convert to PDK (GH #76)
+- Port augeas() function to Puppet 4.x API (GH #77)
+
 ## 2019-07-23 - Release 1.8.0
 
 - Allow Puppet 6 and remove stdlib dependency (GH #73)
