@@ -3,4 +3,5 @@
 ---
 fixtures:
   forge_modules:
+      augeas_core: "puppetlabs/augeas_core"
 #     stdlib: "puppetlabs/stdlib"

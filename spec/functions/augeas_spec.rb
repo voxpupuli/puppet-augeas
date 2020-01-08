@@ -1,16 +1,13 @@
 require 'spec_helper'
 
-describe 'the augeas function' do
-  let(:scope) { PuppetlabsSpec::PuppetInternals.scope }
+describe 'augeas' do
   let(:aug) { Augeas.open(nil, nil, Augeas::NO_MODL_AUTOLOAD) }
+
+  it { is_expected.not_to eq(nil) }
 
   it 'fails if the augeas feature is not present' do
     Puppet.features.expects(:augeas?).returns(false)
-    expect { scope.function_augeas([]) }.to raise_error(Puppet::ParseError, %r{requires the augeas feature})
-  end
-
-  it 'exists' do
-    expect(Puppet::Parser::Functions.function('augeas')).to eq('function_augeas')
+    is_expected.to run.with_params('', 'Foo.lns', []).and_raise_error(Puppet::ParseError, %r{requires the augeas feature})
   end
 
   context 'when passing wrong arguments' do
@@ -19,38 +16,38 @@ describe 'the augeas function' do
     end
 
     it 'raises a ParseError if there are no arguments' do
-      expect { scope.function_augeas([]) }.to raise_error(Puppet::ParseError, %r{Wrong number of arguments})
+      is_expected.to run.with_params([]).and_raise_error(ArgumentError, %r{expects 3 arguments})
     end
 
     it 'raises a ParseError if content is not a string' do
-      expect { scope.function_augeas([['foo'], 'Fstab.lns', []]) }.to raise_error(Puppet::ParseError, %r{content must be a string})
+      is_expected.to run.with_params(['foo'], 'Fstab.lns', []).and_raise_error(ArgumentError, %r{expects a String value})
     end
 
     it 'raises a ParseError if lens is not a string' do
-      expect { scope.function_augeas(['foo', ['Fstab.lns'], []]) }.to raise_error(Puppet::ParseError, %r{lens must be a string})
+      is_expected.to run.with_params('foo', ['Fstab.lns'], []).and_raise_error(ArgumentError, %r{expects a String value})
     end
 
     it 'raises a ParseError if changes is not an array' do
-      expect { scope.function_augeas(['foo', 'Fstab.lns', 'changes']) }.to raise_error(Puppet::ParseError, %r{changes must be an array})
+      is_expected.to run.with_params('foo', 'Fstab.lns', 'changes').and_raise_error(ArgumentError, %r{expects an Array value})
     end
   end
 
   if Puppet.features.augeas?
     context 'when passing invalid input' do
       it 'fails to parse input with lens' do
-        expect { scope.function_augeas(['foo', 'Fstab.lns', []]) }.to raise_error(Puppet::ParseError, %r{Failed to parse string with lens Fstab.lns:})
+        is_expected.to run.with_params('foo', 'Fstab.lns', []).and_raise_error(Puppet::ParseError, %r{Failed to parse string with lens Fstab.lns:})
       end
     end
 
     context 'when passing illegal changes' do
       it 'fails to apply illegal change' do
-        expect { scope.function_augeas(["\n", 'Fstab.lns', ['foo bar']]) }.to raise_error(Puppet::ParseError, %r{Failed to apply change to tree})
+        is_expected.to run.with_params("\n", 'Fstab.lns', ['foo bar']).and_raise_error(Puppet::ParseError, %r{Failed to apply change to tree})
       end
     end
 
     context 'when generating an invalid tree' do
       it 'fails to apply changes with wrong tree' do
-        expect { scope.function_augeas(["\n", 'Fstab.lns', ['set ./1/opt 3']]) }.to raise_error(Puppet::ParseError, %r{Failed to apply changes with lens Fstab.lns:})
+        is_expected.to run.with_params("\n", 'Fstab.lns', ['set ./1/opt 3']).and_raise_error(Puppet::ParseError, %r{Failed to apply changes with lens Fstab.lns:})
       end
     end
 
@@ -72,13 +69,13 @@ describe 'the augeas function' do
       it 'does not work with Augeas prior to 1.0.0' do
         expect(Augeas).to receive(:open).and_return(aug)
         expect(aug).to receive(:get).with('/augeas/version').and_return('0.10.0')
-        expect { scope.function_augeas(["\n", 'Fstab.lns', []]) }.to raise_error(Puppet::ParseError, %r{requires Augeas 1\.0\.0})
+        is_expected.to run.with_params("\n", 'Fstab.lns', []).and_raise_error(Puppet::ParseError, %r{requires Augeas 1\.0\.0})
       end
 
       it 'does not work with ruby-augeas prior to 0.5.0' do
         expect(Augeas).to receive(:open).and_return(aug)
         expect(aug).to receive(:methods).and_return([])
-        expect { scope.function_augeas(["\n", 'Fstab.lns', []]) }.to raise_error(Puppet::ParseError, %r{requires ruby-augeas 0\.5\.0})
+        is_expected.to run.with_params("\n", 'Fstab.lns', []).and_raise_error(Puppet::ParseError, %r{requires ruby-augeas 0\.5\.0})
       end
     end
   end
