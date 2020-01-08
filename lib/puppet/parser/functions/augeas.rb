@@ -3,7 +3,7 @@
 #
 
 module Puppet::Parser::Functions
-  newfunction(:augeas, :type => :rvalue, :doc => <<-EOS
+  newfunction(:augeas, type: :rvalue, doc: <<-EOS
 Modifies a string using Augeas.
 
 *Example:*
@@ -14,14 +14,16 @@ Would result in:
 
     "proc        /proc   proc    nodev,noexec     0       0\n"
     EOS
-  ) do |arguments|
+             ) do |arguments|
     unless Puppet.features.augeas?
-      raise Puppet::ParseError, ('augeas(): this function requires the augeas feature. See http://projects.puppetlabs.com/projects/puppet/wiki/Puppet_Augeas#Pre-requisites for how to activate it.')
+      raise Puppet::ParseError, 'augeas(): this function requires the augeas feature. See http://projects.puppetlabs.com/projects/puppet/wiki/Puppet_Augeas#Pre-requisites for how to activate it.'
     end
 
     # Check that 2 arguments have been given ...
-    raise(Puppet::ParseError, 'augeas(): Wrong number of arguments ' +
-      "given (#{arguments.size} for 3)") if arguments.size != 3
+    if arguments.size != 3
+      raise(Puppet::ParseError, 'augeas(): Wrong number of arguments ' \
+        "given (#{arguments.size} for 3)")
+    end
 
     content = arguments[0]
     lens = arguments[1]
@@ -33,7 +35,7 @@ Would result in:
     raise(Puppet::ParseError, 'augeas(): changes must be an array') unless changes.is_a?(Array)
 
     require 'augeas'
-    aug = Augeas::open(nil, nil, Augeas::NO_MODL_AUTOLOAD)
+    aug = Augeas.open(nil, nil, Augeas::NO_MODL_AUTOLOAD)
     augeas_version = aug.get('/augeas/version')
     raise(Puppet::ParseError, 'augeas(): requires Augeas 1.0.0 or greater') unless Puppet::Util::Package.versioncmp(augeas_version, '1.0.0') >= 0
     raise(Puppet::ParseError, 'augeas(): requires ruby-augeas 0.5.0 or greater') unless aug.methods.include?(:text_store)
@@ -42,22 +44,22 @@ Would result in:
     begin
       aug.set('/input', content)
       aug.text_store(lens, '/input', '/store')
-      unless aug.match("/augeas/text/store//error").empty?
-          error = aug.get("/augeas/text/store//error/message")
-          raise Puppet::ParseError, "augeas(): Failed to parse string with lens #{lens}: #{error}"
+      unless aug.match('/augeas/text/store//error').empty?
+        error = aug.get('/augeas/text/store//error/message')
+        raise Puppet::ParseError, "augeas(): Failed to parse string with lens #{lens}: #{error}"
       end
 
       # Apply changes
       aug.context = '/store'
       changes.each do |c|
         r = aug.srun(c)
-        raise Puppet::ParseError, "augeas(): Failed to apply change to tree" unless r and r[0] >= 0
+        raise Puppet::ParseError, 'augeas(): Failed to apply change to tree' unless r && r[0] >= 0
       end
       unless aug.text_retrieve(lens, '/input', '/store', '/output')
-        error = aug.get("/augeas/text/store//error/message")
+        error = aug.get('/augeas/text/store//error/message')
         raise Puppet::ParseError, "augeas(): Failed to apply changes with lens #{lens}: #{error}"
       end
-      result = aug.get("/output")
+      result = aug.get('/output')
     ensure
       aug.close
     end

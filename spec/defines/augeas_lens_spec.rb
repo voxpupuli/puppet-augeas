@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'augeas::lens' do
   let (:title) { 'foo' }
 
-  lens_dir = Puppet.version < '4.0.0' ? '/usr/share/augeas/lenses' : '/opt/puppetlabs/puppet/share/augeas/lenses'
+  lens_dir = (Puppet.version < '4.0.0') ? '/usr/share/augeas/lenses' : '/opt/puppetlabs/puppet/share/augeas/lenses'
 
   context 'when declaring augeas class first' do
     on_supported_os.each do |os, facts|
@@ -13,17 +13,16 @@ describe 'augeas::lens' do
         end
 
         context 'With standard augeas version' do
-
           context 'when no lens_source is passed' do
-            it 'should error' do
-              expect { is_expected.to compile }.to raise_error(/You must set either \$lens_source or \$lens_content/)
+            it 'errors' do
+              expect { is_expected.to compile }.to raise_error(%r{You must set either \$lens_source or \$lens_content})
             end
           end
 
           context 'when lens_source is passed' do
             let (:params) do
               {
-                :lens_source => '/tmp/foo.aug',
+                lens_source: '/tmp/foo.aug',
               }
             end
 
@@ -36,8 +35,8 @@ describe 'augeas::lens' do
           context 'when lens_source and test_source are passed' do
             let (:params) do
               {
-                :lens_source => '/tmp/foo.aug',
-                :test_source => '/tmp/test_foo.aug',
+                lens_source: '/tmp/foo.aug',
+                test_source: '/tmp/test_foo.aug',
               }
             end
 
@@ -51,15 +50,13 @@ describe 'augeas::lens' do
         context 'when stock_since is passed and augeas is older' do
           let (:params) do
             {
-              :lens_source => '/tmp/foo.aug',
-              :stock_since => '1.2.3',
+              lens_source: '/tmp/foo.aug',
+              stock_since: '1.2.3',
             }
           end
 
           let(:facts) do
-            super().merge({
-              :augeasversion => '1.0.0',
-            })
+            super().merge(augeasversion: '1.0.0')
           end
 
           it { is_expected.to contain_file("#{lens_dir}/foo.aug") }
@@ -69,15 +66,13 @@ describe 'augeas::lens' do
         context 'when stock_since is passed and augeas is newer' do
           let (:params) do
             {
-              :lens_source => '/tmp/foo.aug',
-              :stock_since => '1.2.3',
+              lens_source: '/tmp/foo.aug',
+              stock_since: '1.2.3',
             }
           end
 
           let(:facts) do
-            super().merge({
-              :augeasversion => '1.3.0',
-            })
+            super().merge(augeasversion: '1.3.0')
           end
 
           it do
