@@ -2,6 +2,12 @@
 dist: xenial
 language: ruby
 cache: bundler
+addons:
+  apt:
+    sources:
+      - augeas
+    packages:
+      - libaugeas-dev
 before_install:
   - bundle -v
   - rm -f Gemfile.lock
