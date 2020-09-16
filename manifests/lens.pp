@@ -30,7 +30,7 @@ define augeas::lens (
   $test_source  = undef,
   $stock_since  = false,
 ) {
-  include ::augeas
+  include augeas
 
   if $lens_source != undef {
     if $lens_content != undef {
@@ -59,7 +59,6 @@ define augeas::lens (
   }
 
   if (!$stock_since or versioncmp($::augeasversion, $stock_since) < 0) {
-
     assert_type(Pattern[/^\/.*/], $augeas::lens_dir)
 
     $lens_name = "${name}.aug"

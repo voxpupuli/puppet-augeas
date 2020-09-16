@@ -10,12 +10,11 @@
 #   ['purge']        - whether to purge lens directories
 class augeas (
   $version      = present,
-  $ruby_package = $::augeas::params::ruby_pkg,
+  $ruby_package = $augeas::params::ruby_pkg,
   $ruby_version = present,
-  $lens_dir     = $::augeas::params::lens_dir,
+  $lens_dir     = $augeas::params::lens_dir,
   $purge        = true,
 ) inherits augeas::params {
-
   if versioncmp($::puppetversion, '4.0.0') >= 0 {
     contain 'augeas::files'
   } else {
@@ -25,5 +24,4 @@ class augeas (
 
     Package['ruby-augeas', $augeas::params::augeas_pkgs] -> Augeas <| |> # lint:ignore:spaceship_operator_without_tag
   }
-
 }
