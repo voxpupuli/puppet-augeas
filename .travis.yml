@@ -1,4 +1,5 @@
 ---
+# yamllint disable rule:line-length rule:truthy
 dist: xenial
 language: ruby
 cache: bundler
