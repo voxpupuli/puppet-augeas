@@ -10,7 +10,7 @@ class augeas::files {
   # ensure no file not managed by puppet ends up in there.
   file { $lens_dir:
     ensure       => directory,
-    purge        => $::augeas::purge,
+    purge        => $augeas::purge,
     force        => true,
     recurse      => true,
     recurselimit => 1,
@@ -29,7 +29,7 @@ class augeas::files {
 
   file { "${lens_dir}/tests":
     ensure => directory,
-    purge  => $::augeas::purge,
+    purge  => $augeas::purge,
     force  => true,
     mode   => '0644',
     owner  => $augeas::files_owner,

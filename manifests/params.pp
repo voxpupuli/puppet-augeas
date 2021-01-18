@@ -3,7 +3,6 @@
 # Default parameters for the Augeas module
 #
 class augeas::params {
-
   case $::osfamily {
     'RedHat': {
       $ruby_pkg = $::operatingsystem ? {
@@ -23,7 +22,7 @@ class augeas::params {
         # SLES 11 SP3
         $ruby_pkg = 'ruby1.8-rubygem-ruby-augeas'
       }
-      $augeas_pkgs = ['augeas', 'augeas-lenses', 'libaugeas0' ]
+      $augeas_pkgs = ['augeas', 'augeas-lenses', 'libaugeas0']
     }
 
     'Debian': {
@@ -48,7 +47,7 @@ class augeas::params {
       $augeas_pkgs = ['augeas']
     }
 
-    default:  { fail("Unsupported OS family: ${::osfamily}") }
+    default:  { fail("Unsupported OS family: ${facts['os']['family']}") }
   }
 
   if versioncmp($::puppetversion, '4.0.0') >= 0 {
@@ -59,5 +58,4 @@ class augeas::params {
   } else {
     $lens_dir = '/usr/share/augeas/lenses'
   }
-
 }

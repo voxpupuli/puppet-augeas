@@ -5,6 +5,7 @@ describe 'augeas' do
     let(:facts) do
       {
         osfamily: 'MS-DOS',
+        os: { family: 'MS-DOS' },
       }
     end
 
@@ -43,6 +44,7 @@ describe 'augeas' do
             case facts[:lsbdistcodename]
             when 'squeeze', 'lucid', 'precise'
               let(:facts) do
+                super().merge(ruby: { version: '1.8.7' })
                 super().merge(rubyversion: '1.8.7')
               end
 
@@ -54,6 +56,7 @@ describe 'augeas' do
               }
             else
               let(:facts) do
+                super().merge(ruby: { version: '1.9.3' })
                 super().merge(rubyversion: '1.9.3')
               end
 
@@ -136,6 +139,7 @@ describe 'augeas' do
             case facts[:lsbdistcodename]
             when 'squeeze', 'lucid', 'precise'
               let(:facts) do
+                super().merge(ruby: { version: '1.8.7' })
                 super().merge(rubyversion: '1.8.7')
               end
 
@@ -147,6 +151,7 @@ describe 'augeas' do
               }
             else
               let(:facts) do
+                super().merge(ruby: { version: '1.9.3' })
                 super().merge(rubyversion: '1.9.3')
               end
 
