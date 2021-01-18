@@ -42,6 +42,11 @@ class augeas::params {
       $augeas_pkgs = ['augeas']
     }
 
+    'FreeBSD': {
+      $ruby_pkg = 'rubygem-ruby-augeas'
+      $augeas_pkgs = ['augeas']
+    }
+
     default:  { fail("Unsupported OS family: ${facts['os']['family']}") }
   }
 

@@ -9,6 +9,8 @@
 #   ['lens_dir']     - the lens directory to use
 #   ['purge']        - whether to purge lens directories
 class augeas (
+  String $files_owner = 'root',
+  String $files_group = 'root',
   $version      = present,
   $ruby_package = $augeas::params::ruby_pkg,
   $ruby_version = present,
