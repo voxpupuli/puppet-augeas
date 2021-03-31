@@ -1,3 +1,26 @@
+## 2020-01-08 - Release 1.9.0
+
+- Support Archlinux osfamily (GH #74)
+- Convert to PDK (GH #76)
+- Port augeas() function to Puppet 4.x API (GH #77)
+
+## 2019-07-23 - Release 1.8.0
+
+- Allow Puppet 6 and remove stdlib dependency (GH #73)
+
+## 2018-09-03 - Release 1.7.0
+
+- Remove pe requirements
+- Use cwd to make commands shorter (GH #63)
+- Assert types (GH #64)
+- Fix beaker version to 3.13 
+- Fix stdlib dependency (GH #72)
+
+## 2017-03-31 - Release 1.6.1
+
+- Update versions in tests
+- Linting
+
 ## 2017-01-09 - Release 1.6.0
 
 - Deprecate Puppet 2 and 3

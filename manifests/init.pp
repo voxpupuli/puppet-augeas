@@ -9,26 +9,21 @@
 #   ['lens_dir']     - the lens directory to use
 #   ['purge']        - whether to purge lens directories
 class augeas (
+  String $files_owner = 'root',
+  String $files_group = 'root',
   $version      = present,
-  $ruby_package = $::augeas::params::ruby_pkg,
+  $ruby_package = $augeas::params::ruby_pkg,
   $ruby_version = present,
-  $lens_dir     = $::augeas::params::lens_dir,
+  $lens_dir     = $augeas::params::lens_dir,
   $purge        = true,
 ) inherits augeas::params {
-
   if versioncmp($::puppetversion, '4.0.0') >= 0 {
-    anchor { 'augeas::begin': }
-    -> class {'::augeas::files': }
-    -> anchor { 'augeas::end': }
+    contain 'augeas::files'
   } else {
-    anchor { 'augeas::begin': }
-    -> class {'::augeas::packages': }
-    -> class {'::augeas::files': }
-    -> anchor { 'augeas::end': }
+    contain 'augeas::packages'
+    contain 'augeas::files'
+    Class['augeas::packages'] -> Class['augeas::files']
 
-    # lint:ignore:spaceship_operator_without_tag
-    Package['ruby-augeas', $augeas::params::augeas_pkgs] -> Augeas <| |>
-    # lint:endignore
+    Package['ruby-augeas', $augeas::params::augeas_pkgs] -> Augeas <| |> # lint:ignore:spaceship_operator_without_tag
   }
-
 }

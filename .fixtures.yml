@@ -1,5 +1,8 @@
+# yamllint disable rule:line-length
+# This file can be used to install module dependencies for unit testing
+# See https://github.com/puppetlabs/puppetlabs_spec_helper#using-fixtures for details
+---
 fixtures:
-  repositories:
-    "stdlib": "git://github.com/puppetlabs/puppetlabs-stdlib.git"
-  symlinks:
-    "augeas": "#{source_dir}"
+  forge_modules:
+    augeas_core: "puppetlabs/augeas_core"
+#   stdlib: "puppetlabs/stdlib"
