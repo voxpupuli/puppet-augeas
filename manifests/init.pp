@@ -3,21 +3,21 @@
 # Install and configure Augeas
 #
 # Parameters:
-#   ['version']      - the desired version of Augeas
-#   ['ruby_package'] - the desired package name of the Ruby bindings for Augeas
-#   ['ruby_version'] - the desired version of the Ruby bindings for Augeas
-#   ['lens_dir']     - the lens directory to use
-#   ['purge']        - whether to purge lens directories
+#
+# @param version
+# @param ruby_package
+# @param ruby_version
+# @param lens_dir
+# @param purge
+#
 class augeas (
-  String $files_owner = 'root',
-  String $files_group = 'root',
-  $version      = present,
-  $ruby_package = $augeas::params::ruby_pkg,
-  $ruby_version = present,
-  $lens_dir     = $augeas::params::lens_dir,
-  $purge        = true,
+  String $version      = present,
+  String $ruby_package = $augeas::params::ruby_pkg,
+  String $ruby_version = present,
+  String $lens_dir     = $augeas::params::lens_dir,
+  Boolean $purge       = true,
 ) inherits augeas::params {
-  if versioncmp($::puppetversion, '4.0.0') >= 0 {
+  if versioncmp($facts['puppetversion'], '4.0.0') >= 0 {
     contain 'augeas::files'
   } else {
     contain 'augeas::packages'

@@ -3,8 +3,6 @@
 # Sets up directories and files for Augeas
 #
 class augeas::files {
-  include augeas
-
   $lens_dir = $augeas::lens_dir
 
   # ensure no file not managed by puppet ends up in there.
@@ -15,16 +13,16 @@ class augeas::files {
     recurse      => true,
     recurselimit => 1,
     mode         => '0644',
-    owner        => $augeas::files_owner,
-    group        => $augeas::files_group,
+    owner        => 'root',
+    group        => 'root',
   }
 
   file { "${lens_dir}/dist":
     ensure => directory,
     purge  => false,
     mode   => '0644',
-    owner  => $augeas::files_owner,
-    group  => $augeas::files_group,
+    owner  => 'root',
+    group  => 'root',
   }
 
   file { "${lens_dir}/tests":
@@ -32,7 +30,7 @@ class augeas::files {
     purge  => $augeas::purge,
     force  => true,
     mode   => '0644',
-    owner  => $augeas::files_owner,
-    group  => $augeas::files_group,
+    owner  => 'root',
+    group  => 'root',
   }
 }

@@ -5,14 +5,19 @@
 # the checks fail.
 #
 # Parameters:
-#   ['ensure']       - present/absent
-#   ['lens_content'] - the content of the lens
-#   ['lens_source']  - the source for the lens
-#   ['test_content'] - optionally, the content of the test
-#   ['test_source']  - optionally, the source for the test file.
-#   ['stock_since']  - optionally, indicate in which version of Augeas
-#                      the lens became stock, so it will not be deployed
-#                      above that version.
+#
+# @param ensure
+#   present/absent
+# @param lens_content
+#   the content of the lens
+# @param lens_source
+#   the source for the lens
+# @param test_content
+#   the content of the test
+# @param test_source
+#   the source for the test file
+# @param stock_since
+#   indicate in which version of Augeas the lens became stock, so it will not be deployed above that version
 #
 # Example usage:
 #
@@ -23,12 +28,12 @@
 #   }
 #
 define augeas::lens (
-  $ensure       = present,
-  $lens_content = undef,
-  $lens_source  = undef,
-  $test_content = undef,
-  $test_source  = undef,
-  $stock_since  = false,
+  String $ensure                 = present,
+  Optional[String] $lens_content = undef,
+  Optional[String] $lens_source  = undef,
+  Optional[String] $test_content = undef,
+  Optional[String] $test_source  = undef,
+  Optional[String] $stock_since  = undef,
 ) {
   include augeas
 
@@ -53,12 +58,12 @@ define augeas::lens (
   }
 
   File {
-    owner => $augeas::files_owner,
-    group => $augeas::files_group,
+    owner => 'root',
+    group => 'root',
     mode => '0644',
   }
 
-  if (!$stock_since or versioncmp(String($::augeasversion), $stock_since) < 0) {
+  if (!$stock_since or versioncmp($facts['augeasversion'], $stock_since) < 0) {
     assert_type(Pattern[/^\/.*/], $augeas::lens_dir)
 
     $lens_name = "${name}.aug"
@@ -77,7 +82,7 @@ define augeas::lens (
     exec { "Typecheck lens ${name}":
       command     => "augparse -I . ${lens_name} || (rm -f ${lens_name} && exit 1)",
       cwd         => $augeas::lens_dir,
-      path        => "/opt/puppetlabs/puppet/bin:${::path}",
+      path        => "/opt/puppetlabs/puppet/bin:${facts['path']}",
       refreshonly => true,
       subscribe   => File[$lens_dest],
     }
@@ -95,7 +100,7 @@ define augeas::lens (
       exec { "Test lens ${name}":
         command     => "augparse -I . ${test_name} || (rm -f ${lens_name} && rm -f ${test_name}.aug && exit 1)",
         cwd         => $augeas::lens_dir,
-        path        => "/opt/puppetlabs/puppet/bin:${::path}",
+        path        => "/opt/puppetlabs/puppet/bin:${facts['path']}",
         refreshonly => true,
         subscribe   => File[$lens_dest, $test_dest],
       }
