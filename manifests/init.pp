@@ -17,7 +17,7 @@ class augeas (
   $lens_dir     = $augeas::params::lens_dir,
   $purge        = true,
 ) inherits augeas::params {
-  if versioncmp($::puppetversion, '4.0.0') >= 0 {
+  if versioncmp($facts['puppetversion'], '4.0.0') >= 0 {
     contain 'augeas::files'
   } else {
     contain 'augeas::packages'

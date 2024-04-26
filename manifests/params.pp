@@ -3,9 +3,9 @@
 # Default parameters for the Augeas module
 #
 class augeas::params {
-  case $::osfamily {
+  case $facts['os']['family'] {
     'RedHat': {
-      $ruby_pkg = $::operatingsystem ? {
+      $ruby_pkg = $facts['os']['name'] ? {
         # Amazon Linux AMI (2014.09 and 2015.03) uses ruby 2.0
         'Amazon' => 'ruby20-augeas',
         default => 'ruby-augeas'
@@ -15,7 +15,7 @@ class augeas::params {
 
     'Suse': {
       # RPM Sources: https://build.opensuse.org/project/show/systemsmanagement:puppet
-      if versioncmp($::rubyversion, '2.1.2') >= 0 {
+      if versioncmp($facts['ruby']['version'], '2.1.2') >= 0 {
         # SLES 12 / openSUSE
         $ruby_pkg = 'ruby2.1-rubygem-ruby-augeas'
       } else {
@@ -26,10 +26,10 @@ class augeas::params {
     }
 
     'Debian': {
-      if versioncmp($::rubyversion, '2.1.0') >= 0 {
+      if versioncmp($facts['ruby']['version'], '2.1.0') >= 0 {
         $ruby_pkg = 'ruby-augeas'
       }
-      elsif versioncmp($::rubyversion, '1.9.1') >= 0 {
+      elsif versioncmp($facts['ruby']['version'], '1.9.1') >= 0 {
         $ruby_pkg = 'libaugeas-ruby1.9.1'
       } else {
         $ruby_pkg = 'libaugeas-ruby1.8'
@@ -50,9 +50,9 @@ class augeas::params {
     default:  { fail("Unsupported OS family: ${facts['os']['family']}") }
   }
 
-  if (versioncmp($::puppetversion, '4.0.0') >= 0) and ($::rubysitedir =~ /\/opt\/puppetlabs\/puppet/) {
+  if (versioncmp($facts['puppetversion'], '4.0.0') >= 0) and ($facts['ruby']['sitedir'] =~ /\/opt\/puppetlabs\/puppet/) {
     $lens_dir = '/opt/puppetlabs/puppet/share/augeas/lenses'
-  } elsif (defined('$is_pe') and str2bool("${::is_pe}")) { # lint:ignore:only_variable_string
+  } elsif ('$is_pe' in $facts and str2bool("${facts['is_pe']}")) { # lint:ignore:only_variable_string
     # puppet enterpise has a different lens location
     $lens_dir = '/opt/puppet/share/augeas/lenses'
   } else {

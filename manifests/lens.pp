@@ -58,7 +58,7 @@ define augeas::lens (
     mode => '0644',
   }
 
-  if (!$stock_since or versioncmp(String($::augeasversion), $stock_since) < 0) {
+  if (!$stock_since or versioncmp(String($facts['augeasversion']), $stock_since) < 0) {
     assert_type(Pattern[/^\/.*/], $augeas::lens_dir)
 
     $lens_name = "${name}.aug"
@@ -77,7 +77,7 @@ define augeas::lens (
     exec { "Typecheck lens ${name}":
       command     => "augparse -I . ${lens_name} || (rm -f ${lens_name} && exit 1)",
       cwd         => $augeas::lens_dir,
-      path        => "/opt/puppetlabs/puppet/bin:${::path}",
+      path        => "/opt/puppetlabs/puppet/bin:${facts['path']}",
       refreshonly => true,
       subscribe   => File[$lens_dest],
     }
@@ -95,7 +95,7 @@ define augeas::lens (
       exec { "Test lens ${name}":
         command     => "augparse -I . ${test_name} || (rm -f ${lens_name} && rm -f ${test_name}.aug && exit 1)",
         cwd         => $augeas::lens_dir,
-        path        => "/opt/puppetlabs/puppet/bin:${::path}",
+        path        => "/opt/puppetlabs/puppet/bin:${facts['path']}",
         refreshonly => true,
         subscribe   => File[$lens_dest, $test_dest],
       }
