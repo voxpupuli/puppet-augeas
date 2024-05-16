@@ -58,8 +58,8 @@ define augeas::lens (
   }
 
   File {
-    owner => 'root',
-    group => 'root',
+    owner => $augeas::files_owner,
+    group => $augeas::files_group,
     mode => '0644',
   }
 
