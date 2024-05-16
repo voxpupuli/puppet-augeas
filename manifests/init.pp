@@ -11,6 +11,8 @@
 # @param purge
 #
 class augeas (
+  String $files_owner  = 'root',
+  String $files_group  = 'root',
   String $version      = present,
   String $ruby_package = $augeas::params::ruby_pkg,
   String $ruby_version = present,
