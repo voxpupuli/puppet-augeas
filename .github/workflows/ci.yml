@@ -19,3 +19,5 @@ jobs:
   puppet:
     name: Puppet
     uses: voxpupuli/gha-puppet/.github/workflows/basic.yml@v2
+    with:
+      additional_packages: 'libaugeas-dev augeas-tools'
