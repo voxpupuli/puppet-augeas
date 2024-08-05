@@ -5,11 +5,13 @@ require 'spec_helper'
 describe 'augeas::lens' do
   let(:title) { 'foo' }
 
-  lens_dir = if (Puppet.version >= '4.0.0') && facts[:rubysitedir] =~ (%r{/opt/puppetlabs/puppet})
-               '/opt/puppetlabs/puppet/share/augeas/lenses'
-             else
-               '/usr/share/augeas/lenses'
-             end
+  let(:lens_dir) do
+    if (Puppet.version >= '4.0.0') && facts[:rubysitedir] =~ (%r{/opt/puppetlabs/puppet})
+      '/opt/puppetlabs/puppet/share/augeas/lenses'
+    else
+      '/usr/share/augeas/lenses'
+    end
+  end
 
   context 'when declaring augeas class first' do
     on_supported_os.each do |os, facts|
@@ -62,8 +64,10 @@ describe 'augeas::lens' do
           end
 
           let(:facts) do
-            super().merge(augeas: { version: '1.0.0' })
-            super().merge(augeasversion: '1.0.0')
+            facts.merge({
+                          augeas: { version: '1.0.0' },
+                          augeasversion: '1.0.0'
+                        })
           end
 
           it { is_expected.to contain_file("#{lens_dir}/foo.aug") }
@@ -79,8 +83,10 @@ describe 'augeas::lens' do
           end
 
           let(:facts) do
-            super().merge(augeas: { version: '1.3.0' })
-            super().merge(augeasversion: '1.3.0')
+            facts.merge({
+                          augeas: { version: '1.3.0' },
+                          augeasversion: '1.3.0'
+                        })
           end
 
           it do

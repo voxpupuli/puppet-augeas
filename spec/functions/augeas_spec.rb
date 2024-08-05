@@ -8,13 +8,14 @@ describe 'augeas' do
   it { is_expected.not_to be_nil }
 
   it 'fails if the augeas feature is not present' do
-    Puppet.features.expects(:augeas?).returns(false)
+    allow(Puppet.features).to receive(:augeas?).and_return(false)
     is_expected.to run.with_params('', 'Foo.lns', []).and_raise_error(Puppet::ParseError, %r{requires the augeas feature})
+    expect(Puppet.features).to have_received(:augeas?)
   end
 
   context 'when passing wrong arguments' do
     before do
-      Puppet.features.stubs(:augeas?).returns(true)
+      allow(Puppet.features).to receive(:augeas?).and_return(true)
     end
 
     it 'raises a ParseError if there are no arguments' do
@@ -69,15 +70,19 @@ describe 'augeas' do
 
     context 'when using old libs' do
       it 'does not work with Augeas prior to 1.0.0' do
-        expect(Augeas).to receive(:open).and_return(aug)
-        expect(aug).to receive(:get).with('/augeas/version').and_return('0.10.0')
+        allow(Augeas).to receive(:open).and_return(aug)
+        allow(aug).to receive(:get).with('/augeas/version').and_return('0.10.0')
         is_expected.to run.with_params("\n", 'Fstab.lns', []).and_raise_error(Puppet::ParseError, %r{requires Augeas 1\.0\.0})
+        expect(Augeas).to have_received(:open)
+        expect(aug).to have_received(:get).with('/augeas/version')
       end
 
       it 'does not work with ruby-augeas prior to 0.5.0' do
-        expect(Augeas).to receive(:open).and_return(aug)
-        expect(aug).to receive(:methods).and_return([])
+        allow(Augeas).to receive(:open).and_return(aug)
+        allow(aug).to receive(:methods).and_return([])
         is_expected.to run.with_params("\n", 'Fstab.lns', []).and_raise_error(Puppet::ParseError, %r{requires ruby-augeas 0\.5\.0})
+        expect(Augeas).to have_received(:open)
+        expect(aug).to have_received(:methods)
       end
     end
   end

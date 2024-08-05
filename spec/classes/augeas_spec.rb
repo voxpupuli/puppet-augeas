@@ -3,6 +3,14 @@
 require 'spec_helper'
 
 describe 'augeas' do
+  let(:lens_dir) do
+    if (Puppet.version >= '4.0.0') && facts[:rubysitedir] =~ (%r{/opt/puppetlabs/puppet})
+      '/opt/puppetlabs/puppet/share/augeas/lenses'
+    else
+      '/usr/share/augeas/lenses'
+    end
+  end
+
   context 'when on an unsupported Operating System' do
     let(:facts) do
       {
@@ -15,12 +23,6 @@ describe 'augeas' do
       expect { is_expected.to compile }.to raise_error(%r{Unsupported OS family})
     end
   end
-
-  lens_dir = if (Puppet.version >= '4.0.0') && facts[:rubysitedir] =~ (%r{/opt/puppetlabs/puppet})
-               '/opt/puppetlabs/puppet/share/augeas/lenses'
-             else
-               '/usr/share/augeas/lenses'
-             end
 
   on_supported_os.each do |os, facts|
     context "on #{os}" do
@@ -53,8 +55,10 @@ describe 'augeas' do
             case facts[:lsbdistcodename]
             when 'squeeze', 'lucid', 'precise'
               let(:facts) do
-                super().merge(ruby: { version: '1.8.7' })
-                super().merge(rubyversion: '1.8.7')
+                facts.merge({
+                              ruby: { version: '1.8.7' },
+                              rubyversion: '1.8.7'
+                            })
               end
 
               it {
@@ -65,8 +69,10 @@ describe 'augeas' do
               }
             else
               let(:facts) do
-                super().merge(ruby: { version: '1.9.3' })
-                super().merge(rubyversion: '1.9.3')
+                facts.merge({
+                              ruby: { version: '1.9.3' },
+                              rubyversion: '1.9.3'
+                            })
               end
 
               it {
@@ -155,8 +161,10 @@ describe 'augeas' do
             case facts[:lsbdistcodename]
             when 'squeeze', 'lucid', 'precise'
               let(:facts) do
-                super().merge(ruby: { version: '1.8.7' })
-                super().merge(rubyversion: '1.8.7')
+                facts.merge({
+                              ruby: { version: '1.8.7' },
+                              rubyversion: '1.8.7'
+                            })
               end
 
               it {
@@ -167,8 +175,10 @@ describe 'augeas' do
               }
             else
               let(:facts) do
-                super().merge(ruby: { version: '1.9.3' })
-                super().merge(rubyversion: '1.9.3')
+                facts.merge({
+                              ruby: { version: '1.9.3' },
+                              rubyversion: '1.9.3'
+                            })
               end
 
               it {
@@ -239,12 +249,14 @@ describe 'augeas' do
           facts.merge(is_pe: true)
         end
 
-        pe_lens_dir = if Puppet::Util::Package.versioncmp(Puppet.version, '4.0.0') >= 0
-                        # the enterprise lens dir is the same in 4
-                        lens_dir
-                      else
-                        '/opt/puppet/share/augeas/lenses'
-                      end
+        let(:pe_lens_dir) do
+          if Puppet::Util::Package.versioncmp(Puppet.version, '4.0.0') >= 0
+            # the enterprise lens dir is the same in 4
+            lens_dir
+          else
+            '/opt/puppet/share/augeas/lenses'
+          end
+        end
 
         it {
           is_expected.to contain_file(pe_lens_dir).with(
