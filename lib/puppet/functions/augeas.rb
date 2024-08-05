@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # @summary
 #   Modifies a string using Augeas.
 #

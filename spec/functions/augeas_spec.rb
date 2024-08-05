@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'augeas' do
   let(:aug) { Augeas.open(nil, nil, Augeas::NO_MODL_AUTOLOAD) }
 
-  it { is_expected.not_to eq(nil) }
+  it { is_expected.not_to be_nil }
 
   it 'fails if the augeas feature is not present' do
     Puppet.features.expects(:augeas?).returns(false)

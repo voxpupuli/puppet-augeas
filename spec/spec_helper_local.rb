@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # HACK: to enable all the expect syntax (like allow_any_instance_of) in rspec-puppet examples
 RSpec::Mocks::Syntax.enable_expect(RSpec::Puppet::ManifestMatchers)
 

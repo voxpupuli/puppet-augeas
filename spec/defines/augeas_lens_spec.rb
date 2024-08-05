@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'augeas::lens' do
   let(:title) { 'foo' }
 
-  lens_dir = if Puppet.version >= '4.0.0' and facts[:rubysitedir] =~ %r{/opt/puppetlabs/puppet}
+  lens_dir = if (Puppet.version >= '4.0.0') && facts[:rubysitedir] =~ (%r{/opt/puppetlabs/puppet})
                '/opt/puppetlabs/puppet/share/augeas/lenses'
              else
                '/usr/share/augeas/lenses'
