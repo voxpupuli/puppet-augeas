@@ -14,11 +14,11 @@ describe 'augeas' do
     end
   end
 
-  if Puppet.version >= '4.0.0' and facts[:rubysitedir] =~ /\/opt\/puppetlabs\/puppet/
-    lens_dir = '/opt/puppetlabs/puppet/share/augeas/lenses'
-  else
-    lens_dir = '/usr/share/augeas/lenses'
-  end
+  lens_dir = if Puppet.version >= '4.0.0' and facts[:rubysitedir] =~ %r{/opt/puppetlabs/puppet}
+               '/opt/puppetlabs/puppet/share/augeas/lenses'
+             else
+               '/usr/share/augeas/lenses'
+             end
 
   on_supported_os.each do |os, facts|
     context "on #{os}" do
@@ -32,19 +32,22 @@ describe 'augeas' do
           when 'Debian'
             it {
               is_expected.to contain_package('libaugeas0').with(
-                ensure: 'present',
+                ensure: 'present'
               )
             }
+
             it {
               is_expected.to contain_package('augeas-tools').with(
-                ensure: 'present',
+                ensure: 'present'
               )
             }
+
             it {
               is_expected.to contain_package('augeas-lenses').with(
-                ensure: 'present',
+                ensure: 'present'
               )
             }
+
             case facts[:lsbdistcodename]
             when 'squeeze', 'lucid', 'precise'
               let(:facts) do
@@ -55,7 +58,7 @@ describe 'augeas' do
               it {
                 is_expected.to contain_package('ruby-augeas').with(
                   ensure: 'present',
-                  name: 'libaugeas-ruby1.8',
+                  name: 'libaugeas-ruby1.8'
                 )
               }
             else
@@ -67,25 +70,27 @@ describe 'augeas' do
               it {
                 is_expected.to contain_package('ruby-augeas').with(
                   ensure: 'present',
-                  name: 'libaugeas-ruby1.9.1',
+                  name: 'libaugeas-ruby1.9.1'
                 )
               }
             end
           when 'RedHat'
             it {
               is_expected.to contain_package('augeas').with(
-                ensure: 'present',
+                ensure: 'present'
               )
             }
+
             it {
               is_expected.to contain_package('augeas-libs').with(
-                ensure: 'present',
+                ensure: 'present'
               )
             }
+
             it {
               is_expected.to contain_package('ruby-augeas').with(
                 ensure: 'present',
-                name: 'ruby-augeas',
+                name: 'ruby-augeas'
               )
             }
           end
@@ -96,20 +101,22 @@ describe 'augeas' do
             purge: 'true',
             force: 'true',
             recurse: 'true',
-            recurselimit: 1,
+            recurselimit: 1
           )
         }
+
         it {
           is_expected.to contain_file("#{lens_dir}/dist").with(
             ensure: 'directory',
-            purge: 'false',
+            purge: 'false'
           )
         }
+
         it {
           is_expected.to contain_file("#{lens_dir}/tests").with(
             ensure: 'directory',
             purge: 'true',
-            force: 'true',
+            force: 'true'
           ).without(:recurse)
         }
       end
@@ -127,19 +134,22 @@ describe 'augeas' do
           when 'Debian'
             it {
               is_expected.to contain_package('libaugeas0').with(
-                ensure: '1.2.3',
+                ensure: '1.2.3'
               )
             }
+
             it {
               is_expected.to contain_package('augeas-tools').with(
-                ensure: '1.2.3',
+                ensure: '1.2.3'
               )
             }
+
             it {
               is_expected.to contain_package('augeas-lenses').with(
-                ensure: '1.2.3',
+                ensure: '1.2.3'
               )
             }
+
             case facts[:lsbdistcodename]
             when 'squeeze', 'lucid', 'precise'
               let(:facts) do
@@ -150,7 +160,7 @@ describe 'augeas' do
               it {
                 is_expected.to contain_package('ruby-augeas').with(
                   ensure: '3.2.1',
-                  name: 'libaugeas-ruby1.8',
+                  name: 'libaugeas-ruby1.8'
                 )
               }
             else
@@ -162,25 +172,27 @@ describe 'augeas' do
               it {
                 is_expected.to contain_package('ruby-augeas').with(
                   ensure: '3.2.1',
-                  name: 'libaugeas-ruby1.9.1',
+                  name: 'libaugeas-ruby1.9.1'
                 )
               }
             end
           when 'RedHat'
             it {
               is_expected.to contain_package('augeas').with(
-                ensure: '1.2.3',
+                ensure: '1.2.3'
               )
             }
+
             it {
               is_expected.to contain_package('augeas-libs').with(
-                ensure: '1.2.3',
+                ensure: '1.2.3'
               )
             }
+
             it {
               is_expected.to contain_package('ruby-augeas').with(
                 ensure: '3.2.1',
-                name: 'ruby-augeas',
+                name: 'ruby-augeas'
               )
             }
           end
@@ -200,20 +212,22 @@ describe 'augeas' do
             purge: 'true',
             force: 'true',
             recurse: 'true',
-            recurselimit: 1,
+            recurselimit: 1
           )
         }
+
         it {
           is_expected.to contain_file('/opt/augeas/lenses/dist').with(
             ensure: 'directory',
-            purge: 'false',
+            purge: 'false'
           )
         }
+
         it {
           is_expected.to contain_file('/opt/augeas/lenses/tests').with(
             ensure: 'directory',
             purge: 'true',
-            force: 'true',
+            force: 'true'
           ).without(:recurse)
         }
       end
@@ -235,20 +249,22 @@ describe 'augeas' do
             ensure: 'directory',
             force: 'true',
             recurse: 'true',
-            recurselimit: 1,
+            recurselimit: 1
           )
         }
+
         it {
           is_expected.to contain_file("#{pe_lens_dir}/dist").with(
             ensure: 'directory',
-            purge: 'false',
+            purge: 'false'
           )
         }
+
         it {
           is_expected.to contain_file("#{pe_lens_dir}/tests").with(
             ensure: 'directory',
             force: 'true',
-            purge: 'true',
+            purge: 'true'
           ).without(:recurse)
         }
       end

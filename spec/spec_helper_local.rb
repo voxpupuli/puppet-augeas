@@ -4,7 +4,7 @@ RSpec::Mocks::Syntax.enable_expect(RSpec::Puppet::ManifestMatchers)
 RSpec.configure do |config|
   config.mock_with :rspec
 
-  config.before :each do
+  config.before do
     # Ensure that we don't accidentally cache facts and environment between
     # test cases.  This requires each example group to explicitly load the
     # facts being exercised with something like
@@ -15,7 +15,7 @@ RSpec.configure do |config|
     RSpec::Mocks.setup
   end
 
-  config.after :each do
+  config.after do
     RSpec::Mocks.verify
     RSpec::Mocks.teardown
   end

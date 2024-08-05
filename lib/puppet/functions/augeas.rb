@@ -31,9 +31,7 @@ Puppet::Functions.create_function(:augeas) do
   end
 
   def apply_changes(content, lens, changes)
-    unless Puppet.features.augeas?
-      raise Puppet::ParseError, 'augeas(): this function requires the augeas feature. See http://projects.puppetlabs.com/projects/puppet/wiki/Puppet_Augeas#Pre-requisites for how to activate it.'
-    end
+    raise Puppet::ParseError, 'augeas(): this function requires the augeas feature. See http://projects.puppetlabs.com/projects/puppet/wiki/Puppet_Augeas#Pre-requisites for how to activate it.' unless Puppet.features.augeas?
 
     require 'augeas'
     aug = Augeas.open(nil, nil, Augeas::NO_MODL_AUTOLOAD)
