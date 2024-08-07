@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe 'augeas' do
   let(:lens_dir) do
-    if (Puppet.version >= '4.0.0') && facts[:rubysitedir] =~ (%r{/opt/puppetlabs/puppet})
+    if (Puppet.version >= '4.0.0') && facts[:ruby]['sitedir'] =~ (%r{/opt/puppetlabs/puppet})
       '/opt/puppetlabs/puppet/share/augeas/lenses'
     else
       '/usr/share/augeas/lenses'
