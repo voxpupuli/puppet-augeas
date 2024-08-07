@@ -6,3 +6,5 @@ Gemfile:
 .github/workflows/ci.yml:
   with:
     additional_packages: libaugeas-dev augeas-tools
+spec/spec_helper_acceptance.rb:
+  unmanaged: false

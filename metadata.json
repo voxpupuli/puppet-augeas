@@ -18,7 +18,9 @@
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
         "6",
-        "7"
+        "7",
+        "10",
+        "11"
       ]
     },
     {
@@ -26,14 +28,17 @@
       "operatingsystemrelease": [
         "10.04",
         "12.04",
-        "14.04"
+        "14.04",
+        "20.04",
+        "22.04"
       ]
     },
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
         "5",
-        "6"
+        "6",
+        "9"
       ]
     },
     {
@@ -50,7 +55,9 @@
       "operatingsystem": "FreeBSD",
       "operatingsystemrelease": [
         "11",
-        "12"
+        "12",
+        "13",
+        "14"
       ]
     }
   ],
