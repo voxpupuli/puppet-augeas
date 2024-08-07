@@ -5,7 +5,7 @@
 class augeas::files {
   include augeas
 
-  $lens_dir = $augeas::lens_dir
+  $lens_dir = augeas::lens_dir()
 
   # ensure no file not managed by puppet ends up in there.
   file { $lens_dir:

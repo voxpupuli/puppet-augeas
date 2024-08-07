@@ -1,0 +1,4 @@
+---
+augeas::aio_lens_dir: /opt/puppetlabs/puppet/share/augeas/lenses
+augeas::pe_lens_dir: /opt/puppet/share/augeas/lenses
+augeas::system_lens_dir: /usr/share/augeas/lenses
