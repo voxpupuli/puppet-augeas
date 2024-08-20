@@ -12,7 +12,7 @@ class augeas (
   String $files_owner = 'root',
   String $files_group = 'root',
   Optional[Stdlib::Absolutepath] $lens_dir = undef,
-  $purge        = true,
+  Boolean $purge      = true,
 ) {
   contain 'augeas::files'
 }
