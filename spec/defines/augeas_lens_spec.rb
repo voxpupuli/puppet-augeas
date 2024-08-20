@@ -12,7 +12,7 @@ describe 'augeas::lens' do
     when 'Archlinux'
       '/usr/share/augeas/lenses'
     else
-      if (Puppet.version >= '4.0.0') && facts[:ruby]['sitedir'] =~ (%r{/opt/puppetlabs/puppet})
+      if facts[:ruby]['sitedir'] =~ %r{/opt/puppetlabs/puppet}
         '/opt/puppetlabs/puppet/share/augeas/lenses'
       else
         '/usr/share/augeas/lenses'
