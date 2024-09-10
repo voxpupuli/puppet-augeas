@@ -40,13 +40,6 @@
       ]
     },
     {
-      "operatingsystem": "Amazon",
-      "operatingsystemrelease": [
-        "2014.09",
-        "2015.03"
-      ]
-    },
-    {
       "operatingsystem": "Archlinux"
     },
     {
