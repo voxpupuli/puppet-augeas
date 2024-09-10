@@ -58,13 +58,13 @@ define augeas::lens (
     mode => '0644',
   }
 
-  if (!$stock_since or versioncmp(String($facts['augeasversion']), $stock_since) < 0) {
-    assert_type(Pattern[/^\/.*/], $augeas::lens_dir)
+  $lens_dir = augeas::lens_dir()
 
+  if (!$stock_since or versioncmp(String($facts['augeas']['version']), $stock_since) < 0) {
     $lens_name = "${name}.aug"
-    $lens_dest = "${augeas::lens_dir}/${lens_name}"
+    $lens_dest = "${lens_dir}/${lens_name}"
     $test_name = "tests/test_${name}.aug"
-    $test_dest = "${augeas::lens_dir}/${test_name}"
+    $test_dest = "${lens_dir}/${test_name}"
 
     # lint:ignore:source_without_rights
     file { $lens_dest:
@@ -76,7 +76,7 @@ define augeas::lens (
 
     exec { "Typecheck lens ${name}":
       command     => "augparse -I . ${lens_name} || (rm -f ${lens_name} && exit 1)",
-      cwd         => $augeas::lens_dir,
+      cwd         => $lens_dir,
       path        => "/opt/puppetlabs/puppet/bin:${facts['path']}",
       refreshonly => true,
       subscribe   => File[$lens_dest],
@@ -94,7 +94,7 @@ define augeas::lens (
 
       exec { "Test lens ${name}":
         command     => "augparse -I . ${test_name} || (rm -f ${lens_name} && rm -f ${test_name}.aug && exit 1)",
-        cwd         => $augeas::lens_dir,
+        cwd         => $lens_dir,
         path        => "/opt/puppetlabs/puppet/bin:${facts['path']}",
         refreshonly => true,
         subscribe   => File[$lens_dest, $test_dest],

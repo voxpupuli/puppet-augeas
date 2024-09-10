@@ -13,7 +13,7 @@
 - Remove pe requirements
 - Use cwd to make commands shorter (GH #63)
 - Assert types (GH #64)
-- Fix beaker version to 3.13 
+- Fix beaker version to 3.13
 - Fix stdlib dependency (GH #72)
 
 ## 2017-03-31 - Release 1.6.1

@@ -1,2 +1,4 @@
 ---
 augeas::files_group: "wheel"
+augeas::pe_lens_dir: /usr/local/share/augeas/lenses
+augeas::system_lens_dir: /usr/local/share/augeas/lenses

@@ -10,7 +10,11 @@
   "dependencies": [
     {
       "name": "puppetlabs/augeas_core",
-      "version_requirement": ">=1.0.0 <2.0.0"
+      "version_requirement": ">= 1.0.0 < 2.0.0"
+    },
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 4.13.0 < 10.0.0"
     }
   ],
   "operatingsystem_support": [
@@ -18,7 +22,9 @@
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
         "6",
-        "7"
+        "7",
+        "10",
+        "11"
       ]
     },
     {
@@ -26,14 +32,17 @@
       "operatingsystemrelease": [
         "10.04",
         "12.04",
-        "14.04"
+        "14.04",
+        "20.04",
+        "22.04"
       ]
     },
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
         "5",
-        "6"
+        "6",
+        "9"
       ]
     },
     {
@@ -50,14 +59,16 @@
       "operatingsystem": "FreeBSD",
       "operatingsystemrelease": [
         "11",
-        "12"
+        "12",
+        "13",
+        "14"
       ]
     }
   ],
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 4.10.0 < 7.0.0"
+      "version_requirement": ">= 7.0.0 < 9.0.0"
     }
   ],
   "description": "Augeas Module for Puppet",

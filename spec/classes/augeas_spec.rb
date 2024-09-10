@@ -1,23 +1,21 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'augeas' do
-  context 'when on an unsupported Operating System' do
-    let(:facts) do
-      {
-        osfamily: 'MS-DOS',
-        os: { family: 'MS-DOS' },
-      }
+  let(:lens_dir) do
+    case facts[:os]['family']
+    when 'FreeBSD'
+      '/usr/local/share/augeas/lenses'
+    when 'Archlinux'
+      '/usr/share/augeas/lenses'
+    else
+      if facts[:ruby]['sitedir'] =~ %r{/opt/puppetlabs/puppet}
+        '/opt/puppetlabs/puppet/share/augeas/lenses'
+      else
+        '/usr/share/augeas/lenses'
+      end
     end
-
-    it 'fails' do
-      expect { is_expected.to compile }.to raise_error(%r{Unsupported OS family})
-    end
-  end
-
-  if Puppet.version >= '4.0.0' and facts[:rubysitedir] =~ /\/opt\/puppetlabs\/puppet/
-    lens_dir = '/opt/puppetlabs/puppet/share/augeas/lenses'
-  else
-    lens_dir = '/usr/share/augeas/lenses'
   end
 
   on_supported_os.each do |os, facts|
@@ -27,164 +25,30 @@ describe 'augeas' do
       end
 
       context 'without params' do
-        if Puppet.version < '4.0.0'
-          case facts[:osfamily]
-          when 'Debian'
-            it {
-              is_expected.to contain_package('libaugeas0').with(
-                ensure: 'present',
-              )
-            }
-            it {
-              is_expected.to contain_package('augeas-tools').with(
-                ensure: 'present',
-              )
-            }
-            it {
-              is_expected.to contain_package('augeas-lenses').with(
-                ensure: 'present',
-              )
-            }
-            case facts[:lsbdistcodename]
-            when 'squeeze', 'lucid', 'precise'
-              let(:facts) do
-                super().merge(ruby: { version: '1.8.7' })
-                super().merge(rubyversion: '1.8.7')
-              end
-
-              it {
-                is_expected.to contain_package('ruby-augeas').with(
-                  ensure: 'present',
-                  name: 'libaugeas-ruby1.8',
-                )
-              }
-            else
-              let(:facts) do
-                super().merge(ruby: { version: '1.9.3' })
-                super().merge(rubyversion: '1.9.3')
-              end
-
-              it {
-                is_expected.to contain_package('ruby-augeas').with(
-                  ensure: 'present',
-                  name: 'libaugeas-ruby1.9.1',
-                )
-              }
-            end
-          when 'RedHat'
-            it {
-              is_expected.to contain_package('augeas').with(
-                ensure: 'present',
-              )
-            }
-            it {
-              is_expected.to contain_package('augeas-libs').with(
-                ensure: 'present',
-              )
-            }
-            it {
-              is_expected.to contain_package('ruby-augeas').with(
-                ensure: 'present',
-                name: 'ruby-augeas',
-              )
-            }
-          end
-        end
         it {
           is_expected.to contain_file(lens_dir).with(
             ensure: 'directory',
             purge: 'true',
             force: 'true',
             recurse: 'true',
-            recurselimit: 1,
+            recurselimit: 1
           )
         }
+
         it {
           is_expected.to contain_file("#{lens_dir}/dist").with(
             ensure: 'directory',
-            purge: 'false',
+            purge: 'false'
           )
         }
+
         it {
           is_expected.to contain_file("#{lens_dir}/tests").with(
             ensure: 'directory',
             purge: 'true',
-            force: 'true',
+            force: 'true'
           ).without(:recurse)
         }
-      end
-
-      context 'when versions are specified' do
-        let(:params) do
-          {
-            version: '1.2.3',
-            ruby_version: '3.2.1',
-          }
-        end
-
-        if Puppet.version < '4.0.0'
-          case facts[:osfamily]
-          when 'Debian'
-            it {
-              is_expected.to contain_package('libaugeas0').with(
-                ensure: '1.2.3',
-              )
-            }
-            it {
-              is_expected.to contain_package('augeas-tools').with(
-                ensure: '1.2.3',
-              )
-            }
-            it {
-              is_expected.to contain_package('augeas-lenses').with(
-                ensure: '1.2.3',
-              )
-            }
-            case facts[:lsbdistcodename]
-            when 'squeeze', 'lucid', 'precise'
-              let(:facts) do
-                super().merge(ruby: { version: '1.8.7' })
-                super().merge(rubyversion: '1.8.7')
-              end
-
-              it {
-                is_expected.to contain_package('ruby-augeas').with(
-                  ensure: '3.2.1',
-                  name: 'libaugeas-ruby1.8',
-                )
-              }
-            else
-              let(:facts) do
-                super().merge(ruby: { version: '1.9.3' })
-                super().merge(rubyversion: '1.9.3')
-              end
-
-              it {
-                is_expected.to contain_package('ruby-augeas').with(
-                  ensure: '3.2.1',
-                  name: 'libaugeas-ruby1.9.1',
-                )
-              }
-            end
-          when 'RedHat'
-            it {
-              is_expected.to contain_package('augeas').with(
-                ensure: '1.2.3',
-              )
-            }
-            it {
-              is_expected.to contain_package('augeas-libs').with(
-                ensure: '1.2.3',
-              )
-            }
-            it {
-              is_expected.to contain_package('ruby-augeas').with(
-                ensure: '3.2.1',
-                name: 'ruby-augeas',
-              )
-            }
-          end
-        end
       end
 
       context 'with a non standard lens_dir' do
@@ -200,20 +64,22 @@ describe 'augeas' do
             purge: 'true',
             force: 'true',
             recurse: 'true',
-            recurselimit: 1,
+            recurselimit: 1
           )
         }
+
         it {
           is_expected.to contain_file('/opt/augeas/lenses/dist').with(
             ensure: 'directory',
-            purge: 'false',
+            purge: 'false'
           )
         }
+
         it {
           is_expected.to contain_file('/opt/augeas/lenses/tests').with(
             ensure: 'directory',
             purge: 'true',
-            force: 'true',
+            force: 'true'
           ).without(:recurse)
         }
       end
@@ -223,32 +89,27 @@ describe 'augeas' do
           facts.merge(is_pe: true)
         end
 
-        pe_lens_dir = if Puppet::Util::Package.versioncmp(Puppet.version, '4.0.0') >= 0
-                        # the enterprise lens dir is the same in 4
-                        lens_dir
-                      else
-                        '/opt/puppet/share/augeas/lenses'
-                      end
-
         it {
-          is_expected.to contain_file(pe_lens_dir).with(
+          is_expected.to contain_file(lens_dir).with(
             ensure: 'directory',
             force: 'true',
             recurse: 'true',
-            recurselimit: 1,
+            recurselimit: 1
           )
         }
+
         it {
-          is_expected.to contain_file("#{pe_lens_dir}/dist").with(
+          is_expected.to contain_file("#{lens_dir}/dist").with(
             ensure: 'directory',
-            purge: 'false',
+            purge: 'false'
           )
         }
+
         it {
-          is_expected.to contain_file("#{pe_lens_dir}/tests").with(
+          is_expected.to contain_file("#{lens_dir}/tests").with(
             ensure: 'directory',
             force: 'true',
-            purge: 'true',
+            purge: 'true'
           ).without(:recurse)
         }
       end

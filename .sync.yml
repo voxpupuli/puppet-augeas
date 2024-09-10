@@ -1,22 +1,10 @@
 ---
-# yamllint disable rule:line-length
-.travis.yml:
-  addons:
-    apt:
-      sources:
-        - augeas
-      packages:
-        - libaugeas-dev
-  user: camptocamp
-  secure: "GYBg84VC7Mx8BhAJ/56VjPU8tctatVVafGjuM9rJVmvJpbHkTz+XORHkvdVxCCkAkiq0/NZjwWpbxkQGMz0MxnXT5V/H90+h6YRHnWIEEqlW+5dR76uKZ9mO65cqk+l8UA+GUr5ZWKTS0fEJzjNR8aFM56DaM1u+SWIfjBXfE0k="
-  branches:
-    - master
-    - /^\d/
-  deploy_to_forge:
-    enabled: true
-    tag_regex: "^\\d"
-
 Gemfile:
-  required:
-    ':development':
+  optional:
+    ':test':
       - gem: ruby-augeas
+.github/workflows/ci.yml:
+  with:
+    additional_packages: libaugeas-dev augeas-tools
+spec/spec_helper_acceptance.rb:
+  unmanaged: false
