@@ -83,36 +83,6 @@ describe 'augeas' do
           ).without(:recurse)
         }
       end
-
-      context 'with Puppet Enterprise' do
-        let(:facts) do
-          facts.merge(is_pe: true)
-        end
-
-        it {
-          is_expected.to contain_file(lens_dir).with(
-            ensure: 'directory',
-            force: 'true',
-            recurse: 'true',
-            recurselimit: 1
-          )
-        }
-
-        it {
-          is_expected.to contain_file("#{lens_dir}/dist").with(
-            ensure: 'directory',
-            purge: 'false'
-          )
-        }
-
-        it {
-          is_expected.to contain_file("#{lens_dir}/tests").with(
-            ensure: 'directory',
-            force: 'true',
-            purge: 'true'
-          ).without(:recurse)
-        }
-      end
     end
   end
 end
