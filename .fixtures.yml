@@ -3,6 +3,6 @@
 # See https://github.com/puppetlabs/puppetlabs_spec_helper#using-fixtures for details
 ---
 fixtures:
-  forge_modules:
-    augeas_core: "puppetlabs/augeas_core"
-    stdlib: "puppetlabs/stdlib"
+  repositories:
+    stdlib: https://github.com/puppetlabs/puppetlabs-stdlib.git
+    augeas_core: https://github.com/puppetlabs/puppetlabs-augeas_core.git
