@@ -2,7 +2,7 @@
 
 [![Puppet Forge Version](http://img.shields.io/puppetforge/v/camptocamp/augeas.svg)](https://forge.puppetlabs.com/camptocamp/augeas)
 [![Puppet Forge Downloads](http://img.shields.io/puppetforge/dt/camptocamp/augeas.svg)](https://forge.puppetlabs.com/camptocamp/augeas)
-[![Build Status](https://img.shields.io/travis/camptocamp/puppet-augeas/master.svg)](https://travis-ci.org/camptocamp/puppet-augeas)
+![Build Status](https://github.com/voxpupuli/puppet-augeas/actions/workflows/ci.yml/badge.svg?branch=master)]
 [![Gemnasium](https://img.shields.io/gemnasium/camptocamp/puppet-augeas.svg)](https://gemnasium.com/camptocamp/puppet-augeas)
 [![By Camptocamp](https://img.shields.io/badge/by-camptocamp-fb7047.svg)](http://www.camptocamp.com)
 
