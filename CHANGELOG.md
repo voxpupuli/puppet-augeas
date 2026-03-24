@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v3.0.0](https://github.com/voxpupuli/puppet-augeas/tree/v3.0.0) (2026-03-24)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-augeas/compare/v2.0.0...v3.0.0)
+
+**Breaking changes:**
+
+- Drop puppet, update openvox minimum version to 8.19 [\#118](https://github.com/voxpupuli/puppet-augeas/pull/118) ([TheMeier](https://github.com/TheMeier))
+
+**Implemented enhancements:**
+
+- Allow puppetlabs/augeas\_core 2.x [\#127](https://github.com/voxpupuli/puppet-augeas/pull/127) ([Tonguechaude](https://github.com/Tonguechaude))
+- Add Debian 13 support [\#120](https://github.com/voxpupuli/puppet-augeas/pull/120) ([bastelfreak](https://github.com/bastelfreak))
+- metadata.json: Add OpenVox [\#114](https://github.com/voxpupuli/puppet-augeas/pull/114) ([jstraw](https://github.com/jstraw))
+
 ## [v2.0.0](https://github.com/voxpupuli/puppet-augeas/tree/v2.0.0) (2024-09-10)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-augeas/compare/1.9.0...v2.0.0)
