@@ -73,7 +73,7 @@ describe 'augeas::lens' do
           let(:facts) do
             facts.merge({
                           augeas: { version: '1.0.0' },
-                          augeasversion: '1.0.0'
+                          augeasversion: '1.0.0',
                         })
           end
 
@@ -92,7 +92,7 @@ describe 'augeas::lens' do
           let(:facts) do
             facts.merge({
                           augeas: { version: '1.3.0' },
-                          augeasversion: '1.3.0'
+                          augeasversion: '1.3.0',
                         })
           end
 

@@ -56,15 +56,15 @@ describe 'augeas' do
 
     context 'when applying valid changes' do
       it 'removes the 3rd option' do
-        is_expected.to run.
-          with_params("proc        /proc   proc    nodev,noexec,nosuid     0       0\n", 'Fstab.lns', ['rm ./1/opt[3]']).
-          and_return("proc        /proc   proc    nodev,noexec     0       0\n")
+        is_expected.to run
+          .with_params("proc        /proc   proc    nodev,noexec,nosuid     0       0\n", 'Fstab.lns', ['rm ./1/opt[3]'])
+          .and_return("proc        /proc   proc    nodev,noexec     0       0\n")
       end
 
       it 'sets a 4th option' do
-        is_expected.to run.
-          with_params("proc        /proc   proc    nodev,noexec,nosuid     0       0\n", 'Fstab.lns', ['ins opt after ./1/opt[last()]', 'set ./1/opt[last()] nofoo']).
-          and_return("proc        /proc   proc    nodev,noexec,nosuid,nofoo     0       0\n")
+        is_expected.to run
+          .with_params("proc        /proc   proc    nodev,noexec,nosuid     0       0\n", 'Fstab.lns', ['ins opt after ./1/opt[last()]', 'set ./1/opt[last()] nofoo'])
+          .and_return("proc        /proc   proc    nodev,noexec,nosuid,nofoo     0       0\n")
       end
     end
 

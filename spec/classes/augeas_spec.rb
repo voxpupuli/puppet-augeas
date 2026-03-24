@@ -31,14 +31,14 @@ describe 'augeas' do
             purge: 'true',
             force: 'true',
             recurse: 'true',
-            recurselimit: 1
+            recurselimit: 1,
           )
         }
 
         it {
           is_expected.to contain_file("#{lens_dir}/dist").with(
             ensure: 'directory',
-            purge: 'false'
+            purge: 'false',
           )
         }
 
@@ -46,7 +46,7 @@ describe 'augeas' do
           is_expected.to contain_file("#{lens_dir}/tests").with(
             ensure: 'directory',
             purge: 'true',
-            force: 'true'
+            force: 'true',
           ).without(:recurse)
         }
       end
@@ -64,14 +64,14 @@ describe 'augeas' do
             purge: 'true',
             force: 'true',
             recurse: 'true',
-            recurselimit: 1
+            recurselimit: 1,
           )
         }
 
         it {
           is_expected.to contain_file('/opt/augeas/lenses/dist').with(
             ensure: 'directory',
-            purge: 'false'
+            purge: 'false',
           )
         }
 
@@ -79,7 +79,7 @@ describe 'augeas' do
           is_expected.to contain_file('/opt/augeas/lenses/tests').with(
             ensure: 'directory',
             purge: 'true',
-            force: 'true'
+            force: 'true',
           ).without(:recurse)
         }
       end
