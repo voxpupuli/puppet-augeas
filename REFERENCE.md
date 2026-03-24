@@ -47,11 +47,15 @@ Data type: `Stdlib::Absolutepath`
 
 
 
+Default value: `'/opt/puppetlabs/puppet/share/augeas/lenses'`
+
 ##### <a name="-augeas--system_lens_dir"></a>`system_lens_dir`
 
 Data type: `Stdlib::Absolutepath`
 
 
+
+Default value: `'/usr/share/augeas/lenses'`
 
 ##### <a name="-augeas--files_owner"></a>`files_owner`
 
