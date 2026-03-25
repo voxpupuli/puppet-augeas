@@ -1,6 +1,6 @@
 {
   "name": "puppet-augeas",
-  "version": "3.0.0",
+  "version": "3.0.1-rc0",
   "author": "Vox Pupuli",
   "summary": "Puppet Augeas module",
   "license": "Apache-2.0",
