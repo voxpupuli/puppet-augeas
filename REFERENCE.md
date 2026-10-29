@@ -241,4 +241,3 @@ function to return augeas lens directory
 The augeas::lens_dir function.
 
 Returns: `String`
-
